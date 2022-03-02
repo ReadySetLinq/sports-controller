@@ -1,0 +1,27 @@
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Launcher.exe.config
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Launcher.exe
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Launcher.pdb
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Basketball.exe
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Shared.exe
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Volleyball.exe
+E:\git\ReadySetLinq\Launcher\bin\Release\CoreTechs.Common.dll
+E:\git\ReadySetLinq\Launcher\bin\Release\Newtonsoft.Json.dll
+E:\git\ReadySetLinq\Launcher\bin\Release\nunit.framework.dll
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Basketball.pdb
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Basketball.exe.config
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Shared.pdb
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Shared.exe.config
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Volleyball.pdb
+E:\git\ReadySetLinq\Launcher\bin\Release\RSL Volleyball.exe.config
+E:\git\ReadySetLinq\Launcher\bin\Release\Newtonsoft.Json.xml
+E:\git\ReadySetLinq\Launcher\bin\Release\nunit.framework.pdb
+E:\git\ReadySetLinq\Launcher\bin\Release\nunit.framework.xml
+E:\git\ReadySetLinq\Launcher\bin\Release\en-CA\RSL Shared.resources.dll
+E:\git\ReadySetLinq\Launcher\obj\Release\Launcher.csprojAssemblyReference.cache
+E:\git\ReadySetLinq\Launcher\obj\Release\Launcher.FormLauncher.resources
+E:\git\ReadySetLinq\Launcher\obj\Release\ReadySetLinq.Properties.Resources.resources
+E:\git\ReadySetLinq\Launcher\obj\Release\Launcher.csproj.GenerateResource.cache
+E:\git\ReadySetLinq\Launcher\obj\Release\Launcher.csproj.CopyComplete
+E:\git\ReadySetLinq\Launcher\obj\Release\RSL Launcher.exe
+E:\git\ReadySetLinq\Launcher\obj\Release\RSL Launcher.pdb
+E:\git\ReadySetLinq\Launcher\bin\Release\xptoolslib.net.dll
