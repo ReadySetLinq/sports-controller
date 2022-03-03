@@ -8,24 +8,13 @@ namespace SportsController.Volleyball
 
         #region Widgets
 
-        // Widget Variables
-        private string _widget_Serving = "Serving";
-        private string _widget_Home_Score = "Home Score";
-        private string _widget_Home_Sets = "Home Sets";
-        private string _widget_Away_Score = "Away Score";
-        private string _widget_Away_Sets = "Away Sets";
-
         [
             Category("Widgets"),
             DisplayName("Serving"),
             DefaultValue("Serving"),
             Description("The serving team widget."),
         ]
-        public string Widget_Serving
-        {
-            get { return _widget_Serving; }
-            set { _widget_Serving = value; }
-        }
+        public string Widget_Serving { get; set; } = "Serving";
 
         [
             Category("Widgets"),
@@ -33,11 +22,7 @@ namespace SportsController.Volleyball
             DefaultValue("Home Score"),
             Description("The Home Team points widget."),
         ]
-        public string Widget_Home_Score
-        {
-            get { return _widget_Home_Score; }
-            set { _widget_Home_Score = value; }
-        }
+        public string Widget_Home_Score { get; set; } = "Home Score";
 
         [
             Category("Widgets"),
@@ -45,11 +30,7 @@ namespace SportsController.Volleyball
             DefaultValue("Home Sets"),
             Description("The Home Team sets widget."),
         ]
-        public string Widget_Home_Sets
-        {
-            get { return _widget_Home_Sets; }
-            set { _widget_Home_Sets = value; }
-        }
+        public string Widget_Home_Sets { get; set; } = "Home Sets";
 
         [
             Category("Widgets"),
@@ -57,11 +38,7 @@ namespace SportsController.Volleyball
             DefaultValue("Away Score"),
             Description("The Away Team points widget."),
         ]
-        public string Widget_Away_Score
-        {
-            get { return _widget_Away_Score; }
-            set { _widget_Away_Score = value; }
-        }
+        public string Widget_Away_Score { get; set; } = "Away Score";
 
         [
             Category("Widgets"),
@@ -69,19 +46,11 @@ namespace SportsController.Volleyball
             DefaultValue("Away Sets"),
             Description("The Away Team sets widget."),
         ]
-        public string Widget_Away_Sets
-        {
-            get { return _widget_Away_Sets; }
-            set { _widget_Away_Sets = value; }
-        }
+        public string Widget_Away_Sets { get; set; } = "Away Sets";
 
         #endregion
 
         #region Misc
-
-        // Misc Variables
-        private int _misc_Network_Bug = 0001;
-        private int _misc_Replay_Bug = 0002;
 
         [
             Category("Misc"),
@@ -89,11 +58,7 @@ namespace SportsController.Volleyball
             DefaultValue(0001),
             Description("The Network Bug takeItem ID."),
         ]
-        public int Misc_Network_Bug
-        {
-            get { return _misc_Network_Bug; }
-            set { _misc_Network_Bug = value; }
-        }
+        public int Misc_Network_Bug { get; set; } = 0001;
 
         [
             Category("Misc"),
@@ -101,21 +66,12 @@ namespace SportsController.Volleyball
             DefaultValue(0002),
             Description("The Replay Bug takeItem ID."),
         ]
-        public int Misc_Replay_Bug
-        {
-            get { return _misc_Replay_Bug; }
-            set { _misc_Replay_Bug = value; }
-        }
+        public int Misc_Replay_Bug { get; set; } = 0002;
 
 
         #endregion
 
         #region Bumpers
-
-        private int _bumper_Locator_ID = 0101;
-        private string _bumper_Locator_Heading = "txtHeading";
-        private string _bumper_Locator_Venue = "txtVenue";
-        private string _bumper_Locator_Location = "txtLocation";
 
         [
             Category("Bumpers - Locator"),
@@ -123,11 +79,7 @@ namespace SportsController.Volleyball
             DefaultValue(0101),
             Description("The Locator bumper takeItem ID."),
         ]
-        public int Bumper_Locator_ID
-        {
-            get { return _bumper_Locator_ID; }
-            set { _bumper_Locator_ID = value; }
-        }
+        public int Bumper_Locator_ID { get; set; } = 0101;
 
         [
             Category("Bumpers - Locator"),
@@ -135,11 +87,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHeading"),
             Description("The bumpers heading text box name."),
         ]
-        public string Bumper_Locator_Heading
-        {
-            get { return _bumper_Locator_Heading; }
-            set { _bumper_Locator_Heading = value; }
-        }
+        public string Bumper_Locator_Heading { get; set; } = "txtHeading";
 
         [
             Category("Bumpers - Locator"),
@@ -147,11 +95,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtVenue"),
             Description("The bumpers venue text box name."),
         ]
-        public string Bumper_Locator_Venue
-        {
-            get { return _bumper_Locator_Venue; }
-            set { _bumper_Locator_Venue = value; }
-        }
+        public string Bumper_Locator_Venue { get; set; } = "txtVenue";
 
         [
             Category("Bumpers - Locator"),
@@ -159,18 +103,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtLocation"),
             Description("The bumpers location text box name."),
         ]
-        public string Bumper_Locator_Location
-        {
-            get { return _bumper_Locator_Location; }
-            set { _bumper_Locator_Location = value; }
-        }
-
-        private int _bumper_Score_ID = 0102;
-        private string _bumper_Score_Heading = "txtHeading";
-        private string _bumper_Score_Info = "txtInfo";
-        private string _bumper_Score_Info_Value = "";
-        private string _bumper_Score_HomeTeam = "txtHomeTeam";
-        private string _bumper_Score_AwayTeam = "txtAwayTeam";
+        public string Bumper_Locator_Location { get; set; } = "txtLocation";
 
         [
             Category("Bumpers - Score"),
@@ -178,11 +111,7 @@ namespace SportsController.Volleyball
             DefaultValue(0102),
             Description("The Score bumper takeItem ID."),
         ]
-        public int Bumper_Score_ID
-        {
-            get { return _bumper_Score_ID; }
-            set { _bumper_Score_ID = value; }
-        }
+        public int Bumper_Score_ID { get; set; } = 0102;
 
         [
             Category("Bumpers - Score"),
@@ -190,11 +119,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHeading"),
             Description("The bumpers heading text box name."),
         ]
-        public string Bumper_Score_Heading
-        {
-            get { return _bumper_Score_Heading; }
-            set { _bumper_Score_Heading = value; }
-        }
+        public string Bumper_Score_Heading { get; set; } = "txtHeading";
 
         [
             Category("Bumpers - Score"),
@@ -202,11 +127,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The bumpers information text box name."),
         ]
-        public string Bumper_Score_Info
-        {
-            get { return _bumper_Score_Info; }
-            set { _bumper_Score_Info = value; }
-        }
+        public string Bumper_Score_Info { get; set; } = "txtInfo";
 
         [
             Category("Bumpers - Score"),
@@ -214,11 +135,7 @@ namespace SportsController.Volleyball
             DefaultValue(""),
             Description("The bumpers information text box value."),
         ]
-        public string Bumper_Score_Info_Value
-        {
-            get { return _bumper_Score_Info_Value; }
-            set { _bumper_Score_Info_Value = value; }
-        }
+        public string Bumper_Score_Info_Value { get; set; } = "";
 
         [
             Category("Bumpers - Score"),
@@ -226,11 +143,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHomeTeam"),
             Description("The bumpers home team text box name."),
         ]
-        public string Bumper_Score_HomeTeam
-        {
-            get { return _bumper_Score_HomeTeam; }
-            set { _bumper_Score_HomeTeam = value; }
-        }
+        public string Bumper_Score_HomeTeam { get; set; } = "txtHomeTeam";
 
         [
             Category("Bumpers - Score"),
@@ -238,27 +151,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtAwayTeam"),
             Description("The bumpers away team text box name."),
         ]
-        public string Bumper_Score_AwayTeam
-        {
-            get { return _bumper_Score_AwayTeam; }
-            set { _bumper_Score_AwayTeam = value; }
-        }
-
-        private int _bumper_HeadToHead_ID = 0106;
-        private string _bumper_HeadToHead_Heading = "txtHeading";
-        private string _bumper_HeadToHead_Heading_Value = "{EventTitle}";
-        private string _bumper_HeadToHead_Label_Stat1 = "txtStat1";
-        private string _bumper_HeadToHead_Label_Stat1_Value = "Record";
-        private string _bumper_HeadToHead_Label_Stat2 = "txtStat2";
-        private string _bumper_HeadToHead_Label_Stat2_Value = "Points";
-        private string _bumper_HeadToHead_Label_Stat3 = "txtStat3";
-        private string _bumper_HeadToHead_Label_Stat3_Value = "Streak";
-        private string _bumper_HeadToHead_Home_Stat1 = "txtHomeStat1";
-        private string _bumper_HeadToHead_Home_Stat2 = "txtHomeStat2";
-        private string _bumper_HeadToHead_Home_Stat3 = "txtHomeStat3";
-        private string _bumper_HeadToHead_Away_Stat1 = "txtAwayStat1";
-        private string _bumper_HeadToHead_Away_Stat2 = "txtAwayStat2";
-        private string _bumper_HeadToHead_Away_Stat3 = "txtAwayStat3";
+        public string Bumper_Score_AwayTeam { get; set; } = "txtAwayTeam";
 
         [
             Category("Bumpers - Head To Head"),
@@ -266,11 +159,7 @@ namespace SportsController.Volleyball
             DefaultValue(0106),
             Description("The Head To Head bumper takeItem ID."),
         ]
-        public int Bumper_HeadToHead_ID
-        {
-            get { return _bumper_HeadToHead_ID; }
-            set { _bumper_HeadToHead_ID = value; }
-        }
+        public int Bumper_HeadToHead_ID { get; set; } = 0106;
 
         [
             Category("Bumpers - Head To Head"),
@@ -278,11 +167,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHeading"),
             Description("The bumpers heading text box name."),
         ]
-        public string Bumper_HeadToHead_Heading
-        {
-            get { return _bumper_HeadToHead_Heading; }
-            set { _bumper_HeadToHead_Heading = value; }
-        }
+        public string Bumper_HeadToHead_Heading { get; set; } = "txtHeading";
 
         [
             Category("Bumpers - Head To Head"),
@@ -290,11 +175,7 @@ namespace SportsController.Volleyball
             DefaultValue("{EventTitle}"),
             Description("The bumpers heading value."),
         ]
-        public string Bumper_HeadToHead_Heading_Value
-        {
-            get { return _bumper_HeadToHead_Heading_Value; }
-            set { _bumper_HeadToHead_Heading_Value = value; }
-        }
+        public string Bumper_HeadToHead_Heading_Value { get; set; } = "{EventTitle}";
 
         [
             Category("Bumpers - Head To Head"),
@@ -302,11 +183,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtStat1"),
             Description("The bumpers first stat label box name."),
         ]
-        public string Bumper_HeadToHead_Label_Stat1
-        {
-            get { return _bumper_HeadToHead_Label_Stat1; }
-            set { _bumper_HeadToHead_Label_Stat1 = value; }
-        }
+        public string Bumper_HeadToHead_Label_Stat1 { get; set; } = "txtStat1";
 
         [
             Category("Bumpers - Head To Head"),
@@ -314,11 +191,7 @@ namespace SportsController.Volleyball
             DefaultValue("Record"),
             Description("The bumpers first stat value. (Must be a column from the Stats tab or it will show up blank)"),
         ]
-        public string Bumper_HeadToHead_Label_Stat1_Value
-        {
-            get { return _bumper_HeadToHead_Label_Stat1_Value; }
-            set { _bumper_HeadToHead_Label_Stat1_Value = value; }
-        }
+        public string Bumper_HeadToHead_Label_Stat1_Value { get; set; } = "Record";
 
         [
             Category("Bumpers - Head To Head"),
@@ -326,11 +199,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtStat2"),
             Description("The bumpers second stat label box name."),
         ]
-        public string Bumper_HeadToHead_Label_Stat2
-        {
-            get { return _bumper_HeadToHead_Label_Stat2; }
-            set { _bumper_HeadToHead_Label_Stat2 = value; }
-        }
+        public string Bumper_HeadToHead_Label_Stat2 { get; set; } = "txtStat2";
 
         [
             Category("Bumpers - Head To Head"),
@@ -338,11 +207,7 @@ namespace SportsController.Volleyball
             DefaultValue("Points"),
             Description("The bumpers second stat value. (Must be a column from the Stats tab or it will show up blank)"),
         ]
-        public string Bumper_HeadToHead_Label_Stat2_Value
-        {
-            get { return _bumper_HeadToHead_Label_Stat2_Value; }
-            set { _bumper_HeadToHead_Label_Stat2_Value = value; }
-        }
+        public string Bumper_HeadToHead_Label_Stat2_Value { get; set; } = "Points";
 
         [
             Category("Bumpers - Head To Head"),
@@ -350,11 +215,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtStat3"),
             Description("The bumpers third stat label box name."),
         ]
-        public string Bumper_HeadToHead_Label_Stat3
-        {
-            get { return _bumper_HeadToHead_Label_Stat3; }
-            set { _bumper_HeadToHead_Label_Stat3 = value; }
-        }
+        public string Bumper_HeadToHead_Label_Stat3 { get; set; } = "txtStat3";
 
         [
             Category("Bumpers - Head To Head"),
@@ -362,11 +223,7 @@ namespace SportsController.Volleyball
             DefaultValue("Streak"),
             Description("The bumpers third stat value. (Must be a column from the Stats tab or it will show up blank)"),
         ]
-        public string Bumper_HeadToHead_Label_Stat3_Value
-        {
-            get { return _bumper_HeadToHead_Label_Stat3_Value; }
-            set { _bumper_HeadToHead_Label_Stat3_Value = value; }
-        }
+        public string Bumper_HeadToHead_Label_Stat3_Value { get; set; } = "Streak";
 
         [
             Category("Bumpers - Head To Head"),
@@ -374,11 +231,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHomeStat1"),
             Description("The bumpers first stat box name for the home team."),
         ]
-        public string Bumper_HeadToHead_Home_Stat1
-        {
-            get { return _bumper_HeadToHead_Home_Stat1; }
-            set { _bumper_HeadToHead_Home_Stat1 = value; }
-        }
+        public string Bumper_HeadToHead_Home_Stat1 { get; set; } = "txtHomeStat1";
 
         [
             Category("Bumpers - Head To Head"),
@@ -386,11 +239,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtAwayStat1"),
             Description("The bumpers first stat box name for the away team."),
         ]
-        public string Bumper_HeadToHead_Away_Stat1
-        {
-            get { return _bumper_HeadToHead_Away_Stat1; }
-            set { _bumper_HeadToHead_Away_Stat1 = value; }
-        }
+        public string Bumper_HeadToHead_Away_Stat1 { get; set; } = "txtAwayStat1";
 
         [
             Category("Bumpers - Head To Head"),
@@ -398,11 +247,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHomeStat2"),
             Description("The bumpers second stat box name for the home team."),
         ]
-        public string Bumper_HeadToHead_Home_Stat2
-        {
-            get { return _bumper_HeadToHead_Home_Stat2; }
-            set { _bumper_HeadToHead_Home_Stat2 = value; }
-        }
+        public string Bumper_HeadToHead_Home_Stat2 { get; set; } = "txtHomeStat2";
 
         [
             Category("Bumpers - Head To Head"),
@@ -410,11 +255,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtAwayStat2"),
             Description("The bumpers second stat box name for the away team."),
         ]
-        public string Bumper_HeadToHead_Away_Stat2
-        {
-            get { return _bumper_HeadToHead_Away_Stat2; }
-            set { _bumper_HeadToHead_Away_Stat2 = value; }
-        }
+        public string Bumper_HeadToHead_Away_Stat2 { get; set; } = "txtAwayStat2";
 
         [
             Category("Bumpers - Head To Head"),
@@ -422,11 +263,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHomeStat3"),
             Description("The bumpers third stat box name for the home team."),
         ]
-        public string Bumper_HeadToHead_Home_Stat3
-        {
-            get { return _bumper_HeadToHead_Home_Stat3; }
-            set { _bumper_HeadToHead_Home_Stat3 = value; }
-        }
+        public string Bumper_HeadToHead_Home_Stat3 { get; set; } = "txtHomeStat3";
 
         [
             Category("Bumpers - Head To Head"),
@@ -434,25 +271,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtAwayStat3"),
             Description("The bumpers third stat box name for the away team."),
         ]
-        public string Bumper_HeadToHead_Away_Stat3
-        {
-            get { return _bumper_HeadToHead_Away_Stat3; }
-            set { _bumper_HeadToHead_Away_Stat3 = value; }
-        }
-
-        private int _bumper_Sets_ID = 0104;
-        private string _bumper_Sets_Heading = "txtHeading";
-        private string _bumper_Sets_Heading_Value = "{EventTitle}";
-        private string _bumper_Sets_Home_Set1 = "txtSetHome1";
-        private string _bumper_Sets_Away_Set1 = "txtSetAway1";
-        private string _bumper_Sets_Home_Set2 = "txtSetHome2";
-        private string _bumper_Sets_Away_Set2 = "txtSetAway2";
-        private string _bumper_Sets_Home_Set3 = "txtSetHome3";
-        private string _bumper_Sets_Away_Set3 = "txtSetAway3";
-        private string _bumper_Sets_Home_Set4 = "txtSetHome4";
-        private string _bumper_Sets_Away_Set4 = "txtSetAway4";
-        private string _bumper_Sets_Home_Set5 = "txtSetHome5";
-        private string _bumper_Sets_Away_Set5 = "txtSetAway5";
+        public string Bumper_HeadToHead_Away_Stat3 { get; set; } = "txtAwayStat3";
 
         [
             Category("Bumpers - Sets"),
@@ -460,11 +279,7 @@ namespace SportsController.Volleyball
             DefaultValue(0104),
             Description("The Sets bumper takeItem ID."),
         ]
-        public int Bumper_Sets_ID
-        {
-            get { return _bumper_Sets_ID; }
-            set { _bumper_Sets_ID = value; }
-        }
+        public int Bumper_Sets_ID { get; set; } = 0104;
 
         [
             Category("Bumpers - Sets"),
@@ -472,11 +287,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHeading"),
             Description("The bumpers heading text box name."),
         ]
-        public string Bumper_Sets_Heading
-        {
-            get { return _bumper_Sets_Heading; }
-            set { _bumper_Sets_Heading = value; }
-        }
+        public string Bumper_Sets_Heading { get; set; } = "txtHeading";
 
         [
             Category("Bumpers - Sets"),
@@ -484,11 +295,7 @@ namespace SportsController.Volleyball
             DefaultValue("{EventTitle}"),
             Description("The bumpers heading value."),
         ]
-        public string Bumper_Sets_Heading_Value
-        {
-            get { return _bumper_Sets_Heading_Value; }
-            set { _bumper_Sets_Heading_Value = value; }
-        }
+        public string Bumper_Sets_Heading_Value { get; set; } = "{EventTitle}";
 
         [
             Category("Bumpers - Sets"),
@@ -496,11 +303,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetHome1"),
             Description("The home teams first set source box name."),
         ]
-        public string Bumper_Sets_Home_Set1
-        {
-            get { return _bumper_Sets_Home_Set1; }
-            set { _bumper_Sets_Home_Set1 = value; }
-        }
+        public string Bumper_Sets_Home_Set1 { get; set; } = "txtSetHome1";
 
         [
             Category("Bumpers - Sets"),
@@ -508,11 +311,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetAway1"),
             Description("The away teams first set source box name."),
         ]
-        public string Bumper_Sets_Away_Set1
-        {
-            get { return _bumper_Sets_Away_Set1; }
-            set { _bumper_Sets_Away_Set1 = value; }
-        }
+        public string Bumper_Sets_Away_Set1 { get; set; } = "txtSetAway1";
 
         [
             Category("Bumpers - Sets"),
@@ -520,11 +319,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetHome2"),
             Description("The home teams second set source box name."),
         ]
-        public string Bumper_Sets_Home_Set2
-        {
-            get { return _bumper_Sets_Home_Set2; }
-            set { _bumper_Sets_Home_Set2 = value; }
-        }
+        public string Bumper_Sets_Home_Set2 { get; set; } = "txtSetHome2";
 
         [
             Category("Bumpers - Sets"),
@@ -532,11 +327,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetAway2"),
             Description("The away teams second set source box name."),
         ]
-        public string Bumper_Sets_Away_Set2
-        {
-            get { return _bumper_Sets_Away_Set2; }
-            set { _bumper_Sets_Away_Set2 = value; }
-        }
+        public string Bumper_Sets_Away_Set2 { get; set; } = "txtSetAway2";
 
         [
             Category("Bumpers - Sets"),
@@ -544,11 +335,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetHome3"),
             Description("The home teams third set source box name."),
         ]
-        public string Bumper_Sets_Home_Set3
-        {
-            get { return _bumper_Sets_Home_Set3; }
-            set { _bumper_Sets_Home_Set3 = value; }
-        }
+        public string Bumper_Sets_Home_Set3 { get; set; } = "txtSetHome3";
 
         [
             Category("Bumpers - Sets"),
@@ -556,11 +343,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetAway3"),
             Description("The away teams third set source box name."),
         ]
-        public string Bumper_Sets_Away_Set3
-        {
-            get { return _bumper_Sets_Away_Set3; }
-            set { _bumper_Sets_Away_Set3 = value; }
-        }
+        public string Bumper_Sets_Away_Set3 { get; set; } = "txtSetAway3";
 
         [
             Category("Bumpers - Sets"),
@@ -568,11 +351,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetHome4"),
             Description("The home teams fourth set source box name."),
         ]
-        public string Bumper_Sets_Home_Set4
-        {
-            get { return _bumper_Sets_Home_Set4; }
-            set { _bumper_Sets_Home_Set4 = value; }
-        }
+        public string Bumper_Sets_Home_Set4 { get; set; } = "txtSetHome4";
 
         [
             Category("Bumpers - Sets"),
@@ -580,11 +359,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetAway4"),
             Description("The away teams fourth set source box name."),
         ]
-        public string Bumper_Sets_Away_Set4
-        {
-            get { return _bumper_Sets_Away_Set4; }
-            set { _bumper_Sets_Away_Set4 = value; }
-        }
+        public string Bumper_Sets_Away_Set4 { get; set; } = "txtSetAway4";
 
         [
             Category("Bumpers - Sets"),
@@ -592,11 +367,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetHome5"),
             Description("The home teams fith set source box name."),
         ]
-        public string Bumper_Sets_Home_Set5
-        {
-            get { return _bumper_Sets_Home_Set5; }
-            set { _bumper_Sets_Home_Set5 = value; }
-        }
+        public string Bumper_Sets_Home_Set5 { get; set; } = "txtSetHome5";
 
         [
             Category("Bumpers - Sets"),
@@ -604,24 +375,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtSetAway5"),
             Description("The away teams fith set source box name."),
         ]
-        public string Bumper_Sets_Away_Set5
-        {
-            get { return _bumper_Sets_Away_Set5; }
-            set { _bumper_Sets_Away_Set5 = value; }
-        }
-
-        private int _bumper_Standings_ID = 0105;
-        private string _bumper_Standings_Heading = "txtHeading";
-        private string _bumper_Standings_Heading_Value = "{EventTitle}";
-        private string _bumper_Standings_Title = "txtTitle";
-        private string _bumper_Standings_Title_Value = "West";
-        private string _bumper_Standings_Background = "bg";
-        private string _bumper_Standings_Background_Visible = "True";
-        private string _bumper_Standings_GroupBase = "group";
-        private string _bumper_Standings_SchoolBase = "txtTeamSchool";
-        private string _bumper_Standings_RecordBase = "txtTeamRecord";
-        private string _bumper_Standings_PointsBase = "txtTeamPoints";
-        private int _bumper_Standings_MaxTeams = 11;
+        public string Bumper_Sets_Away_Set5 { get; set; } = "txtSetAway5";
 
         [
             Category("Bumpers - Standings"),
@@ -629,11 +383,7 @@ namespace SportsController.Volleyball
             DefaultValue(0105),
             Description("The Standings bumper takeItem ID."),
         ]
-        public int Bumper_Standings_ID
-        {
-            get { return _bumper_Standings_ID; }
-            set { _bumper_Standings_ID = value; }
-        }
+        public int Bumper_Standings_ID { get; set; } = 0105;
 
         [
             Category("Bumpers - Standings"),
@@ -641,11 +391,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHeading"),
             Description("The bumpers heading text box name."),
         ]
-        public string Bumper_Standings_Heading
-        {
-            get { return _bumper_Standings_Heading; }
-            set { _bumper_Standings_Heading = value; }
-        }
+        public string Bumper_Standings_Heading { get; set; } = "txtHeading";
 
         [
             Category("Bumpers - Standings"),
@@ -653,11 +399,7 @@ namespace SportsController.Volleyball
             DefaultValue("{EventTitle}"),
             Description("The bumpers heading value."),
         ]
-        public string Bumper_Standings_Heading_Value
-        {
-            get { return _bumper_Standings_Heading_Value; }
-            set { _bumper_Standings_Heading_Value = value; }
-        }
+        public string Bumper_Standings_Heading_Value { get; set; } = "{EventTitle}";
 
         [
             Category("Bumpers - Standings"),
@@ -665,11 +407,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitle"),
             Description("The bumpers title text box name."),
         ]
-        public string Bumper_Standings_Title
-        {
-            get { return _bumper_Standings_Title; }
-            set { _bumper_Standings_Title = value; }
-        }
+        public string Bumper_Standings_Title { get; set; } = "txtTitle";
 
         [
             Category("Bumpers - Standings"),
@@ -677,11 +415,7 @@ namespace SportsController.Volleyball
             DefaultValue("West"),
             Description("The bumpers title value."),
         ]
-        public string Bumper_Standings_Title_Value
-        {
-            get { return _bumper_Standings_Title_Value; }
-            set { _bumper_Standings_Title_Value = value; }
-        }
+        public string Bumper_Standings_Title_Value { get; set; } = "West";
 
         [
             Category("Bumpers - Standings"),
@@ -689,11 +423,9 @@ namespace SportsController.Volleyball
             DefaultValue("bg"),
             Description("The bumpers background element name."),
         ]
-        public string Bumper_Standings_Background
-        {
-            get { return _bumper_Standings_Background; }
-            set { _bumper_Standings_Background = value; }
-        }
+        public string Bumper_Standings_Background { get; set; } = "bg";
+
+        private string _bumper_Standings_Background_Visible = "True";
 
         [
             Category("Bumpers - Standings"),
@@ -729,11 +461,7 @@ namespace SportsController.Volleyball
             DefaultValue("group"),
             Description("The base value of the group names without a number (Example: If you have group1, group2... the group base would be group)."),
         ]
-        public string Bumper_Standings_GroupBase
-        {
-            get { return _bumper_Standings_GroupBase; }
-            set { _bumper_Standings_GroupBase = value; }
-        }
+        public string Bumper_Standings_GroupBase { get; set; } = "group";
 
         [
             Category("Bumpers - Standings"),
@@ -741,22 +469,14 @@ namespace SportsController.Volleyball
             DefaultValue("txtTeamSchool"),
             Description("The base value of the schools name text box without a number (Example: If you have txtTeamSchool1, txtTeamSchool2... the base would be txtTeamSchool)."),
         ]
-        public string Bumper_Standings_SchoolBase
-        {
-            get { return _bumper_Standings_SchoolBase; }
-            set { _bumper_Standings_SchoolBase = value; }
-        }
+        public string Bumper_Standings_SchoolBase { get; set; } = "txtTeamSchool";
         [
             Category("Bumpers - Standings"),
             DisplayName("Team Record Base"),
             DefaultValue("txtTeamRecord"),
             Description("The base value of the teams record text box without a number (Example: If you have txtTeamRecord1, txtTeamRecord2... the base would be txtTeamRecord)."),
         ]
-        public string Bumper_Standings_RecordBase
-        {
-            get { return _bumper_Standings_RecordBase; }
-            set { _bumper_Standings_RecordBase = value; }
-        }
+        public string Bumper_Standings_RecordBase { get; set; } = "txtTeamRecord";
 
         [
             Category("Bumpers - Standings"),
@@ -764,11 +484,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTeamPoints"),
             Description("The base value of the teams points text box without a number (Example: If you have txtTeamPoints1, txtTeamPoints2... the base would be txtTeamPoints)."),
         ]
-        public string Bumper_Standings_PointsBase
-        {
-            get { return _bumper_Standings_PointsBase; }
-            set { _bumper_Standings_PointsBase = value; }
-        }
+        public string Bumper_Standings_PointsBase { get; set; } = "txtTeamPoints";
 
         [
             Category("Bumpers - Standings"),
@@ -776,25 +492,12 @@ namespace SportsController.Volleyball
             DefaultValue(11),
             Description("The maximum amount of teams that can be shown (the amount of groups in the scene)."),
         ]
-        public int Bumper_Standings_MaxTeams
-        {
-            get { return _bumper_Standings_MaxTeams; }
-            set { _bumper_Standings_MaxTeams = value; }
-        }
+        public int Bumper_Standings_MaxTeams { get; set; } = 11;
 
 
         #endregion
 
         #region Lower Thirds
-
-        private int _l3_EventExtras_ID = 0204;
-        private string _l3_EventExtras_Title = "txtTitle";
-        private string _l3_EventExtras_Left_Name = "txtNameLeft";
-        private string _l3_EventExtras_Left_Title = "txtTitleLeft";
-        private string _l3_EventExtras_Middle_Name = "txtNameMiddle";
-        private string _l3_EventExtras_Middle_Title = "txtTitleMiddle";
-        private string _l3_EventExtras_Right_Name = "txtNameRight";
-        private string _l3_EventExtras_Right_Title = "txtTitleRight";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -802,11 +505,7 @@ namespace SportsController.Volleyball
             DefaultValue(0204),
             Description("The Lower Third takeItem ID."),
         ]
-        public int L3_EventExtras_ID
-        {
-            get { return _l3_EventExtras_ID; }
-            set { _l3_EventExtras_ID = value; }
-        }
+        public int L3_EventExtras_ID { get; set; } = 0204;
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -814,11 +513,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitle"),
             Description("The title text text box name."),
         ]
-        public string L3_EventExtras_Title
-        {
-            get { return _l3_EventExtras_Title; }
-            set { _l3_EventExtras_Title = value; }
-        }
+        public string L3_EventExtras_Title { get; set; } = "txtTitle";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -826,11 +521,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtNameLeft"),
             Description("The left name text box name."),
         ]
-        public string L3_EventExtras_Left_Name
-        {
-            get { return _l3_EventExtras_Left_Name; }
-            set { _l3_EventExtras_Left_Name = value; }
-        }
+        public string L3_EventExtras_Left_Name { get; set; } = "txtNameLeft";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -838,11 +529,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitleLeft"),
             Description("The left title text box name."),
         ]
-        public string L3_EventExtras_Left_Title
-        {
-            get { return _l3_EventExtras_Left_Title; }
-            set { _l3_EventExtras_Left_Title = value; }
-        }
+        public string L3_EventExtras_Left_Title { get; set; } = "txtTitleLeft";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -850,11 +537,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtNameMiddle"),
             Description("The middle name text box name."),
         ]
-        public string L3_EventExtras_Middle_Name
-        {
-            get { return _l3_EventExtras_Middle_Name; }
-            set { _l3_EventExtras_Middle_Name = value; }
-        }
+        public string L3_EventExtras_Middle_Name { get; set; } = "txtNameMiddle";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -862,11 +545,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitleMiddle"),
             Description("The middle title text box name."),
         ]
-        public string L3_EventExtras_Middle_Title
-        {
-            get { return _l3_EventExtras_Middle_Title; }
-            set { _l3_EventExtras_Middle_Title = value; }
-        }
+        public string L3_EventExtras_Middle_Title { get; set; } = "txtTitleMiddle";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -874,11 +553,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtNameRight"),
             Description("The right name text box name."),
         ]
-        public string L3_EventExtras_Right_Name
-        {
-            get { return _l3_EventExtras_Right_Name; }
-            set { _l3_EventExtras_Right_Name = value; }
-        }
+        public string L3_EventExtras_Right_Name { get; set; } = "txtNameRight";
 
         [
             Category("Lower Thirds - Event Extras"),
@@ -886,17 +561,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitleRight"),
             Description("The right title text box name."),
         ]
-        public string L3_EventExtras_Right_Title
-        {
-            get { return _l3_EventExtras_Right_Title; }
-            set { _l3_EventExtras_Right_Title = value; }
-        }
-
-        private int _l3_PlayerInfo_ID = 0201;
-        private string _l3_PlayerInfo_TeamQuad = "TeamLogo";
-        private string _l3_PlayerInfo_Name = "PlayerName";
-        private string _l3_PlayerInfo_Number = "PlayerNumber";
-        private string _l3_PlayerInfo_Info = "txtInfo";
+        public string L3_EventExtras_Right_Title { get; set; } = "txtTitleRight";
 
         [
             Category("Lower Thirds - Player Info"),
@@ -904,11 +569,7 @@ namespace SportsController.Volleyball
             DefaultValue(0201),
             Description("The player info takeItem ID."),
         ]
-        public int L3_PlayerInfo_ID
-        {
-            get { return _l3_PlayerInfo_ID; }
-            set { _l3_PlayerInfo_ID = value; }
-        }
+        public int L3_PlayerInfo_ID { get; set; } = 0201;
 
         [
             Category("Lower Thirds - Player Info"),
@@ -916,11 +577,7 @@ namespace SportsController.Volleyball
             DefaultValue("TeamLogo"),
             Description("The player info team background quad."),
         ]
-        public string L3_PlayerInfo_TeamQuad
-        {
-            get { return _l3_PlayerInfo_TeamQuad; }
-            set { _l3_PlayerInfo_TeamQuad = value; }
-        }
+        public string L3_PlayerInfo_TeamQuad { get; set; } = "TeamLogo";
 
         [
             Category("Lower Thirds - Player Info"),
@@ -928,11 +585,7 @@ namespace SportsController.Volleyball
             DefaultValue("PlayerName"),
             Description("The players name text box name."),
         ]
-        public string L3_PlayerInfo_Name
-        {
-            get { return _l3_PlayerInfo_Name ; }
-            set { _l3_PlayerInfo_Name = value; }
-        }
+        public string L3_PlayerInfo_Name { get; set; } = "PlayerName";
 
         [
             Category("Lower Thirds - Player Info"),
@@ -940,11 +593,7 @@ namespace SportsController.Volleyball
             DefaultValue("PlayerNumber"),
             Description("The players number text box name."),
         ]
-        public string L3_PlayerInfo_Number
-        {
-            get { return _l3_PlayerInfo_Number; }
-            set { _l3_PlayerInfo_Number = value; }
-        }
+        public string L3_PlayerInfo_Number { get; set; } = "PlayerNumber";
 
         [
             Category("Lower Thirds - Player Info"),
@@ -952,18 +601,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The players information text box name."),
         ]
-        public string L3_PlayerInfo_Info
-        {
-            get { return _l3_PlayerInfo_Info; }
-            set { _l3_PlayerInfo_Info = value; }
-        }
-
-        private int _l3_PlayerStats_ID = 0202;
-        private string _l3_PlayerStats_TeamQuad = "TeamLogo";
-        private string _l3_PlayerStats_Name = "PlayerName";
-        private string _l3_PlayerStats_Number = "PlayerNumber";
-        private string _l3_PlayerStats_Info = "txtInfo";
-        private string _l3_PlayerStats_Highlight = "txtHighlight";
+        public string L3_PlayerInfo_Info { get; set; } = "txtInfo";
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -971,11 +609,7 @@ namespace SportsController.Volleyball
             DefaultValue(0202),
             Description("The player stats takeItem ID."),
         ]
-        public int L3_PlayerStats_ID
-        {
-            get { return _l3_PlayerStats_ID; }
-            set { _l3_PlayerStats_ID = value; }
-        }
+        public int L3_PlayerStats_ID { get; set; } = 0202;
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -983,11 +617,7 @@ namespace SportsController.Volleyball
             DefaultValue("TeamLogo"),
             Description("The player stats team background quad."),
         ]
-        public string L3_PlayerStats_TeamQuad
-        {
-            get { return _l3_PlayerStats_TeamQuad; }
-            set { _l3_PlayerStats_TeamQuad = value; }
-        }
+        public string L3_PlayerStats_TeamQuad { get; set; } = "TeamLogo";
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -995,11 +625,7 @@ namespace SportsController.Volleyball
             DefaultValue("PlayerName"),
             Description("The players name text box name."),
         ]
-        public string L3_PlayerStats_Name
-        {
-            get { return _l3_PlayerStats_Name; }
-            set { _l3_PlayerStats_Name = value; }
-        }
+        public string L3_PlayerStats_Name { get; set; } = "PlayerName";
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -1007,11 +633,7 @@ namespace SportsController.Volleyball
             DefaultValue("PlayerNumber"),
             Description("The players number text box name."),
         ]
-        public string L3_PlayerStats_Number
-        {
-            get { return _l3_PlayerStats_Number; }
-            set { _l3_PlayerStats_Number = value; }
-        }
+        public string L3_PlayerStats_Number { get; set; } = "PlayerNumber";
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -1019,11 +641,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The information text box name."),
         ]
-        public string L3_PlayerStats_Info
-        {
-            get { return _l3_PlayerStats_Info; }
-            set { _l3_PlayerStats_Info = value; }
-        }
+        public string L3_PlayerStats_Info { get; set; } = "txtInfo";
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -1031,16 +649,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtHighlight"),
             Description("The bottom highlight text box name."),
         ]
-        public string L3_PlayerStats_Highlight
-        {
-            get { return _l3_PlayerStats_Highlight; }
-            set { _l3_PlayerStats_Highlight = value; }
-        }
-
-        private int _l3_TeamInfo_ID = 0203;
-        private string _l3_TeamInfo_TeamQuad = "TeamLogo";
-        private string _l3_TeamInfo_Title = "txtTitle";
-        private string _l3_TeamInfo_Info = "txtInfo";
+        public string L3_PlayerStats_Highlight { get; set; } = "txtHighlight";
 
         [
             Category("Lower Thirds - Team Stats"),
@@ -1048,11 +657,7 @@ namespace SportsController.Volleyball
             DefaultValue(0203),
             Description("The team info takeItem ID."),
         ]
-        public int L3_TeamInfo_ID
-        {
-            get { return _l3_TeamInfo_ID; }
-            set { _l3_TeamInfo_ID = value; }
-        }
+        public int L3_TeamInfo_ID { get; set; } = 0203;
 
         [
             Category("Lower Thirds - Team Stats"),
@@ -1060,11 +665,7 @@ namespace SportsController.Volleyball
             DefaultValue("quadTeam"),
             Description("The team info team background quad."),
         ]
-        public string L3_TeamInfo_TeamQuad
-        {
-            get { return _l3_TeamInfo_TeamQuad; }
-            set { _l3_TeamInfo_TeamQuad = value; }
-        }
+        public string L3_TeamInfo_TeamQuad { get; set; } = "TeamLogo";
 
         [
             Category("Lower Thirds - Team Stats"),
@@ -1072,11 +673,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitle"),
             Description("The teams title text box name."),
         ]
-        public string L3_TeamInfo_Title
-        {
-            get { return _l3_TeamInfo_Title; }
-            set { _l3_TeamInfo_Title = value; }
-        }
+        public string L3_TeamInfo_Title { get; set; } = "txtTitle";
 
         [
             Category("Lower Thirds - Team Stats"),
@@ -1084,15 +681,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The teams information text box name."),
         ]
-        public string L3_TeamInfo_Info
-        {
-            get { return _l3_TeamInfo_Info; }
-            set { _l3_TeamInfo_Info = value; }
-        }
-
-        private int _l3_Custom_ID = 0204;
-        private string _l3_Custom_Title = "txtTitle";
-        private string _l3_Custom_Message = "txtMessage";
+        public string L3_TeamInfo_Info { get; set; } = "txtInfo";
 
         [
             Category("Lower Thirds - Custom"),
@@ -1100,11 +689,7 @@ namespace SportsController.Volleyball
             DefaultValue(0204),
             Description("The custom lower third takeItem ID."),
         ]
-        public int L3_Custom_ID
-        {
-            get { return _l3_Custom_ID; }
-            set { _l3_Custom_ID = value; }
-        }
+        public int L3_Custom_ID { get; set; } = 0204;
 
         [
             Category("Lower Thirds - Custom"),
@@ -1112,11 +697,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtTitle"),
             Description("The custom lower third title text box name."),
         ]
-        public string L3_Custom_Title
-        {
-            get { return _l3_Custom_Title; }
-            set { _l3_Custom_Title = value; }
-        }
+        public string L3_Custom_Title { get; set; } = "txtTitle";
 
         [
             Category("Lower Thirds - Custom"),
@@ -1124,17 +705,11 @@ namespace SportsController.Volleyball
             DefaultValue("txtMessage"),
             Description("The custom lower third message text box name."),
         ]
-        public string L3_Custom_Message
-        {
-            get { return _l3_Custom_Message; }
-            set { _l3_Custom_Message = value; }
-        }
+        public string L3_Custom_Message { get; set; } = "txtMessage";
 
         #endregion
 
         #region Scorebug
-
-        private int _scorebug_ID = 0003;
 
         [
             Category("Scorebug - Main"),
@@ -1142,15 +717,7 @@ namespace SportsController.Volleyball
             DefaultValue(0003),
             Description("The main scorebug takeItem ID."),
         ]
-        public int Scorebug_ID
-        {
-            get { return _scorebug_ID; }
-            set { _scorebug_ID = value; }
-        }
-
-        private int _scorebug_Info_ID = 0004;
-        private string _scorebug_Info_Name = "txtInfo";
-        private string _scorebug_Info_Data = "Coming Up,1st Set,2nd Set,3rd Set,4th Set,5th Set,{HomeName} Match Point,{HomeName} Set,{HomeName} Red Card,{HomeName} Yellow Card,{AwayName} Match Point,{AwayName} Set,{AwayName} Red Card,{AwayName} Yellow Card,Final";
+        public int Scorebug_ID { get; set; } = 0003;
 
         [
             Category("Scorebug - Info"),
@@ -1158,11 +725,7 @@ namespace SportsController.Volleyball
             DefaultValue(0004),
             Description("The info bug take ID."),
         ]
-        public int Scorebug_Info_ID
-        {
-            get { return _scorebug_Info_ID; }
-            set { _scorebug_Info_ID = value; }
-        }
+        public int Scorebug_Info_ID { get; set; } = 0004;
 
         [
             Category("Scorebug - Info"),
@@ -1170,11 +733,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The info box text name."),
         ]
-        public string Scorebug_Info_Name
-        {
-            get { return _scorebug_Info_Name; }
-            set { _scorebug_Info_Name = value; }
-        }
+        public string Scorebug_Info_Name { get; set; } = "txtInfo";
 
         [
             Category("Scorebug - Info"),
@@ -1182,14 +741,7 @@ namespace SportsController.Volleyball
             DefaultValue("Coming Up,1st Set,2nd Set,3rd Set,4th Set,5th Set,{HomeName} Match Point,{HomeName} Set,{AwayName} Match Point,{AwayName} Set,Final"),
             Description("A comma-seperated list of options to populate the bug info widget with.")
         ]
-        public string Scorebug_Info_Data
-        {
-            get { return this._scorebug_Info_Data; }
-            set { this._scorebug_Info_Data = value; }
-        }
-
-        private int _scorebug_YellowCard_ID = 0005;
-        private string _scorebug_YellowCard_Text = "txtInfo";
+        public string Scorebug_Info_Data { get; set; } = "Coming Up,1st Set,2nd Set,3rd Set,4th Set,5th Set,{HomeName} Match Point,{HomeName} Set,{HomeName} Red Card,{HomeName} Yellow Card,{AwayName} Match Point,{AwayName} Set,{AwayName} Red Card,{AwayName} Yellow Card,Final";
 
         [
             Category("Scorebug - Yellow Card"),
@@ -1197,11 +749,7 @@ namespace SportsController.Volleyball
             DefaultValue(0005),
             Description("The yellow card take ID."),
         ]
-        public int Scorebug_YellowCard_ID
-        {
-            get { return _scorebug_YellowCard_ID; }
-            set { _scorebug_YellowCard_ID = value; }
-        }
+        public int Scorebug_YellowCard_ID { get; set; } = 0005;
 
         [
             Category("Scorebug - Yellow Card"),
@@ -1209,26 +757,15 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The info box text name."),
         ]
-        public string Scorebug_YellowCard_Text
-        {
-            get { return _scorebug_YellowCard_Text; }
-            set { _scorebug_YellowCard_Text = value; }
-        }
+        public string Scorebug_YellowCard_Text { get; set; } = "txtInfo";
 
-        private int _scorebug_RedCard_ID = 0006;
-        private string _scorebug_RedCard_Text = "txtInfo";
-        
         [
             Category("Scorebug - Red Card"),
             DisplayName("Red Card TakeID"),
             DefaultValue(0006),
             Description("The red card take ID."),
         ]
-        public int Scorebug_RedCard_ID
-        {
-            get { return _scorebug_RedCard_ID; }
-            set { _scorebug_RedCard_ID = value; }
-        }
+        public int Scorebug_RedCard_ID { get; set; } = 0006;
 
         [
             Category("Scorebug - Red Card"),
@@ -1236,20 +773,11 @@ namespace SportsController.Volleyball
             DefaultValue("txtInfo"),
             Description("The info box text name."),
         ]
-        public string Scorebug_RedCard_Text
-        {
-            get { return _scorebug_RedCard_Text; }
-            set { _scorebug_RedCard_Text = value; }
-        }
+        public string Scorebug_RedCard_Text { get; set; } = "txtInfo";
 
         #endregion
 
         #region Credits
-
-        // Credits Variables
-        private int _credits_ID = 901;
-        private string _credits_Text = "txtText";
-        private int _credits_copyright_id = 902;
 
         [
             Category("Credits"),
@@ -1257,11 +785,7 @@ namespace SportsController.Volleyball
             DefaultValue(901),
             Description("The main credits take ID."),
         ]
-        public int Credits_ID
-        {
-            get { return _credits_ID; }
-            set { _credits_ID = value; }
-        }
+        public int Credits_ID { get; set; } = 901;
 
         [
             Category("Credits"),
@@ -1269,11 +793,7 @@ namespace SportsController.Volleyball
             DefaultValue("txtText"),
             Description("The text box element name."),
         ]
-        public string Credits_Text
-        {
-            get { return _credits_Text; }
-            set { _credits_Text = value; }
-        }
+        public string Credits_Text { get; set; } = "txtText";
 
         [
             Category("Credits"),
@@ -1281,11 +801,7 @@ namespace SportsController.Volleyball
             DefaultValue(902),
             Description("The copyright credits page take ID."),
         ]
-        public int Credits_Copyright_ID
-        {
-            get { return _credits_copyright_id; }
-            set { _credits_copyright_id = value; }
-        }
+        public int Credits_Copyright_ID { get; set; } = 902;
 
         #endregion
 
