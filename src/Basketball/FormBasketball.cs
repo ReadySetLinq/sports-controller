@@ -27,6 +27,7 @@ namespace SportsController.Basketball
         List<TakeItem> takeItems;
         Timer _creditsTmr = new Timer();
         Timer _infoTmr = new Timer();
+        bool _autoPoint = true;
         int _credits_namesPerPage = 0;
         int _credits_rowCount = 0;
         int _credits_rowIndex = 0;
@@ -762,7 +763,7 @@ namespace SportsController.Basketball
             TakeItem infoItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
             if (infoItem.IsOnline)
             {
-                scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                updateInfoLastEdited(0);
                 TurnOnTakeItem(infoItem);
             }
         }
@@ -1027,6 +1028,20 @@ namespace SportsController.Basketball
 
         #region Scoreboard Tab
 
+        private void updateInfoLastEdited(int value = 0)
+        {
+            scoreboardData.InfoLastEdited = value; // 0 = select box, 1 = text box
+            if (value == 0)
+            {
+                lblCmbInfobox.BackColor = System.Drawing.Color.DarkGreen;
+                lblTxtInfobox.BackColor = System.Drawing.Color.DarkRed;
+            } else
+            {
+                lblCmbInfobox.BackColor = System.Drawing.Color.DarkRed;
+                lblTxtInfobox.BackColor = System.Drawing.Color.DarkGreen;
+            }
+        }
+
         private void populateScoreboard()
         {
             // Fill in all scoreboard labels with proper data from scoreboard variable
@@ -1206,7 +1221,7 @@ namespace SportsController.Basketball
                             TurnOffTakeItem(takeItem);
                             // Revert to w/e our select box is for next time we show the bug
                         }
-                        scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                        updateInfoLastEdited(0);
                         txtInfobox.Text = string.Empty;
                     }
                 }));
@@ -1217,7 +1232,7 @@ namespace SportsController.Basketball
             }
 
             // Only update text if AutoPoint is set to True
-            if (ConvertCustoms(Globals.GetObjectValue("Scorebug_Info_AutoPoint", propGridXpression.SelectedObject)).Equals("True"))
+            if (_autoPoint)
             {
                 switch (team)
                 {
@@ -1233,14 +1248,21 @@ namespace SportsController.Basketball
                         break;
                 }
 
-                scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+                updateInfoLastEdited(1);
 
                 TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
                 // Check if take item is offline
                 if (!takeItem.IsOnline)
                 {
                     btnTakeInfobox.PerformClick();
+
                     // Reset & Start the timer
+                    if (_infoTmr != null)
+                    {
+                        _infoTmr.Stop();
+                        _infoTmr.Enabled = false;
+                        _infoTmr = null;
+                    }
                     _infoTmr = new Timer
                     {
                         Interval = 2500
@@ -1977,21 +1999,36 @@ namespace SportsController.Basketball
 
         private void cmbInfobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+            updateInfoLastEdited(0);
         }
 
         private void txtInfobox_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtInfobox.Text.Trim()))
-                scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+                updateInfoLastEdited(1);
             else
-                scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                updateInfoLastEdited(0);
         }
 
         private void btnInfoboxClear_Click(object sender, EventArgs e)
         {
             txtInfobox.Text = string.Empty;
-            scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+            updateInfoLastEdited(0);
+        }
+
+        private void btnAutoPoint_Click(object sender, EventArgs e)
+        {
+            _autoPoint = !_autoPoint;
+            if (_autoPoint)
+            {
+                btnAutoPoint.Text = "Auto-Point Enabled";
+                btnAutoPoint.BackColor = System.Drawing.Color.DarkGreen;
+            }
+            else
+            {
+                btnAutoPoint.Text = "Auto-Point Disabled";
+                btnAutoPoint.BackColor = System.Drawing.Color.DarkRed;
+            }
         }
 
         private void cmbHomeL3PlayerNumber_SelectedIndexChanged(object sender, EventArgs e)
@@ -2408,7 +2445,7 @@ namespace SportsController.Basketball
             {
                 TurnOffTakeItem(takeItem);
                 // Revert to w/e our select box is for next time we show the bug
-                scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                updateInfoLastEdited(0);
             }
         }
 

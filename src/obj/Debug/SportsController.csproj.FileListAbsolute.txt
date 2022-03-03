@@ -27,7 +27,6 @@ C:\git\sports-controller\src\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
 C:\git\sports-controller\src\bin\Debug\Newtonsoft.Json.xml
 C:\git\sports-controller\src\bin\Debug\nunit.framework.pdb
 C:\git\sports-controller\src\bin\Debug\nunit.framework.xml
-C:\git\sports-controller\src\obj\Debug\SportsController.csprojAssemblyReference.cache
 C:\git\sports-controller\src\obj\Debug\SportsController.Properties.Resources.resources
 C:\git\sports-controller\src\obj\Debug\en-CA\SportsController.resources.dll
 C:\git\sports-controller\src\obj\Debug\SportsController.csproj.CopyComplete

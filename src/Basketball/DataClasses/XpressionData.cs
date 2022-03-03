@@ -747,7 +747,6 @@ namespace SportsController.Basketball
         #endregion
 
         #region Scorebug
-        private string _scorebug_Info_AutoPoint = "False";
 
         [
             Category("Scorebug - Main"),
@@ -796,34 +795,6 @@ namespace SportsController.Basketball
             Description("A comma-seperated list of options to populate the bug info widget with.")
         ]
         public string Scorebug_Info_Data { get; set; } = "Coming Up,1st,End of the 1st,2nd,End of the 2nd,Halftime,3rd,End of the 3rd,4th,End of the 5th,OT,End of OT,{HomeName} Victory,{AwayName} Victory,Final";
-
-        [
-            Category("Scorebug - Info"),
-            DisplayName("Auto Add Points to custom info"),
-            DefaultValue("True"),
-            Description("If set to true, when a team gets a point the custom info box will auto update to show the point information"),
-        ]
-        public string Scorebug_Info_AutoPoint
-        {
-            get { return _scorebug_Info_AutoPoint; }
-            set
-            {
-                // Only accept True/False as answers (and Convert Yes/No to True/No)
-                string val = value.Trim().ToLower();
-                if (val.Equals("true") || val.Equals("false"))
-                {
-                    _scorebug_Info_AutoPoint = char.ToUpper(value[0]) + value.Substring(1);
-                }
-                else if (val.Equals("yes"))
-                {
-                    _scorebug_Info_AutoPoint = "True";
-                }
-                else if (val.Equals("no"))
-                {
-                    _scorebug_Info_AutoPoint = "False";
-                }
-            }
-        }
 
         #endregion
 

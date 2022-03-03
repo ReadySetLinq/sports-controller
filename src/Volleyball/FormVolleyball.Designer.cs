@@ -34,8 +34,8 @@
             this.tabWindows = new System.Windows.Forms.TabControl();
             this.tabPageScoreboard = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
+            this.lblCmbInfobox = new System.Windows.Forms.Label();
+            this.lblTxtInfobox = new System.Windows.Forms.Label();
             this.btnInfoboxClear = new System.Windows.Forms.Button();
             this.txtInfobox = new System.Windows.Forms.TextBox();
             this.cmbInfobox = new System.Windows.Forms.ComboBox();
@@ -275,12 +275,13 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configDirectoryProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xpressionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeAllOfflineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configDirectoryProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAutoPoint = new System.Windows.Forms.Button();
             this.tabWindows.SuspendLayout();
             this.tabPageScoreboard.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -361,8 +362,9 @@
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label62);
-            this.panel4.Controls.Add(this.label63);
+            this.panel4.Controls.Add(this.btnAutoPoint);
+            this.panel4.Controls.Add(this.lblCmbInfobox);
+            this.panel4.Controls.Add(this.lblTxtInfobox);
             this.panel4.Controls.Add(this.btnInfoboxClear);
             this.panel4.Controls.Add(this.txtInfobox);
             this.panel4.Controls.Add(this.cmbInfobox);
@@ -370,17 +372,19 @@
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
             // 
-            // label62
+            // lblCmbInfobox
             // 
-            resources.ApplyResources(this.label62, "label62");
-            this.label62.BackColor = System.Drawing.Color.Transparent;
-            this.label62.Name = "label62";
+            resources.ApplyResources(this.lblCmbInfobox, "lblCmbInfobox");
+            this.lblCmbInfobox.BackColor = System.Drawing.Color.DarkGreen;
+            this.lblCmbInfobox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCmbInfobox.Name = "lblCmbInfobox";
             // 
-            // label63
+            // lblTxtInfobox
             // 
-            resources.ApplyResources(this.label63, "label63");
-            this.label63.BackColor = System.Drawing.Color.Transparent;
-            this.label63.Name = "label63";
+            resources.ApplyResources(this.lblTxtInfobox, "lblTxtInfobox");
+            this.lblTxtInfobox.BackColor = System.Drawing.Color.DarkRed;
+            this.lblTxtInfobox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTxtInfobox.Name = "lblTxtInfobox";
             // 
             // btnInfoboxClear
             // 
@@ -2442,6 +2446,12 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
+            // configDirectoryProgramToolStripMenuItem
+            // 
+            this.configDirectoryProgramToolStripMenuItem.Name = "configDirectoryProgramToolStripMenuItem";
+            resources.ApplyResources(this.configDirectoryProgramToolStripMenuItem, "configDirectoryProgramToolStripMenuItem");
+            this.configDirectoryProgramToolStripMenuItem.Click += new System.EventHandler(this.configDirectoryProgramToolStripMenuItem_Click);
+            // 
             // reloadProgramToolStripMenuItem
             // 
             this.reloadProgramToolStripMenuItem.Name = "reloadProgramToolStripMenuItem";
@@ -2475,11 +2485,15 @@
             resources.ApplyResources(this.takeAllOfflineToolStripMenuItem, "takeAllOfflineToolStripMenuItem");
             this.takeAllOfflineToolStripMenuItem.Click += new System.EventHandler(this.takeAllOfflineToolStripMenuItem_Click);
             // 
-            // configDirectoryProgramToolStripMenuItem
+            // btnAutoPoint
             // 
-            this.configDirectoryProgramToolStripMenuItem.Name = "configDirectoryProgramToolStripMenuItem";
-            resources.ApplyResources(this.configDirectoryProgramToolStripMenuItem, "configDirectoryProgramToolStripMenuItem");
-            this.configDirectoryProgramToolStripMenuItem.Click += new System.EventHandler(this.configDirectoryProgramToolStripMenuItem_Click);
+            this.btnAutoPoint.BackColor = System.Drawing.Color.DarkGreen;
+            resources.ApplyResources(this.btnAutoPoint, "btnAutoPoint");
+            this.btnAutoPoint.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnAutoPoint.Name = "btnAutoPoint";
+            this.btnAutoPoint.Tag = "Automatically show the point infobox on change";
+            this.btnAutoPoint.UseVisualStyleBackColor = false;
+            this.btnAutoPoint.Click += new System.EventHandler(this.btnAutoPoint_Click);
             // 
             // FormVolleyball
             // 
@@ -2708,8 +2722,8 @@
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Button btnTakeReplay;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label lblCmbInfobox;
+        private System.Windows.Forms.Label lblTxtInfobox;
         private System.Windows.Forms.Button btnInfoboxClear;
         private System.Windows.Forms.TextBox txtInfobox;
         private System.Windows.Forms.ComboBox cmbInfobox;
@@ -2816,6 +2830,7 @@
         private System.Windows.Forms.Button btnSaveStats;
         private System.Windows.Forms.ToolStripMenuItem reloadProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configDirectoryProgramToolStripMenuItem;
+        private System.Windows.Forms.Button btnAutoPoint;
     }
 }
 

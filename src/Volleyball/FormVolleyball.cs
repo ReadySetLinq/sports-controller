@@ -24,6 +24,8 @@ namespace SportsController.Volleyball
         Scoreboard scoreboardData;
         List<TakeItem> takeItems;
         Timer _creditsTmr = new Timer();
+        Timer _infoTmr = new Timer();
+        bool _autoPoint = true;
         int _credits_namesPerPage = 0;
         int _credits_rowCount = 0;
         int _credits_rowIndex = 0;
@@ -37,7 +39,10 @@ namespace SportsController.Volleyball
 
         ~FormVolleyball()
         {
-            _creditsTmr.Dispose();
+            if (_creditsTmr != null)
+                _creditsTmr.Dispose();
+            if (_infoTmr != null)
+                _infoTmr.Dispose();
         }
 
         private void FormVolleyball_Load(object sender, EventArgs e)
@@ -662,21 +667,21 @@ namespace SportsController.Volleyball
             TakeItem infoItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
             if (infoItem.IsOnline)
             {
-                scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                updateInfoLastEdited(0);
                 TurnOnTakeItem(infoItem);
             }
 
             TakeItem redItem = takeItems.Where(item => item.Name == "Scorebug_RedCard_ID").First();
             if (redItem.IsOnline)
             {
-                scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+                updateInfoLastEdited(1);
                 TurnOnTakeItem(redItem);
             }
 
             TakeItem yellowItem = takeItems.Where(item => item.Name == "Scorebug_YellowCard_ID").First();
             if (yellowItem.IsOnline)
             {
-                scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+                updateInfoLastEdited(1);
                 TurnOnTakeItem(yellowItem);
             }
         }
@@ -1006,6 +1011,22 @@ namespace SportsController.Volleyball
         #endregion
 
         #region Scoreboard Tab
+
+        private void updateInfoLastEdited(int value = 0)
+        {
+            scoreboardData.InfoLastEdited = value; // 0 = select box, 1 = text box
+            if (value == 0)
+            {
+                lblCmbInfobox.BackColor = System.Drawing.Color.DarkGreen;
+                lblTxtInfobox.BackColor = System.Drawing.Color.DarkRed;
+            }
+            else
+            {
+                lblCmbInfobox.BackColor = System.Drawing.Color.DarkRed;
+                lblTxtInfobox.BackColor = System.Drawing.Color.DarkGreen;
+            }
+        }
+
         private void populateScoreboard()
         {
             // Fill in all scoreboard labels with proper data from scoreboard variable
@@ -1219,26 +1240,80 @@ namespace SportsController.Volleyball
                         cmbInfobox.SelectedIndex = index;
                     break;
             }
-            scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+            updateInfoLastEdited(0);
         }
 
         private void PlayTeamPoint(Teams team)
         {
-            switch (team)
+            string infoText = string.Empty;
+
+            void Info_Timer_Tick(object tickSender, EventArgs tickE)
             {
-               case Teams.Home:
-                    string _homeName = ConvertCustoms(Globals.GetObjectValue("HomeName", propGridEvent.SelectedObject));
-                    txtInfobox.Text = string.Format("{0} Point", _homeName);
-                    break;
-                case Teams.Away:
-                    string _awayName = ConvertCustoms(Globals.GetObjectValue("AwayName", propGridEvent.SelectedObject));
-                    txtInfobox.Text = string.Format("{0} Point", _awayName);
-                    break;
+                Invoke(new Action(() =>
+                {
+                    if (!infoText.Equals(string.Empty) && infoText.Equals(txtInfobox.Text))
+                    {
+                        TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+                        // Check if take item is online
+                        if (takeItem.IsOnline)
+                        {
+                            TurnOffTakeItem(takeItem);
+                            // Revert to w/e our select box is for next time we show the bug
+                        }
+                        updateInfoLastEdited(0);
+                        txtInfobox.Text = string.Empty;
+                    }
+                }));
+
+                _infoTmr.Stop();
+                _infoTmr.Enabled = false;
+                _infoTmr = null;
+            }
+
+            // Only update text if AutoPoint is set to True
+            if (_autoPoint)
+            {
+                switch (team)
+                {
+                    case Teams.Home:
+                        string _homeName = ConvertCustoms(Globals.GetObjectValue("HomeName", propGridEvent.SelectedObject));
+                        txtInfobox.Text = string.Format("{0} Point", _homeName);
+                        infoText = txtInfobox.Text;
+                        break;
+                    case Teams.Away:
+                        string _awayName = ConvertCustoms(Globals.GetObjectValue("AwayName", propGridEvent.SelectedObject));
+                        txtInfobox.Text = string.Format("{0} Point", _awayName);
+                        infoText = txtInfobox.Text;
+                        break;
+                }
+
+                updateInfoLastEdited(1);
+
+                TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+                // Check if take item is offline
+                if (!takeItem.IsOnline)
+                {
+                    btnTakeInfobox.PerformClick();
+
+                    // Reset & Start the timer
+                    if (_infoTmr != null)
+                    {
+                        _infoTmr.Stop();
+                        _infoTmr.Enabled = false;
+                        _infoTmr = null;
+                    }
+                    _infoTmr = new Timer
+                    {
+                        Interval = 2500
+                    };
+                    _infoTmr.Tick += new EventHandler(Info_Timer_Tick);
+                    _infoTmr.Enabled = true;
+                    _infoTmr.Start();
+                }
             }
 
             // Update the serving widget
             _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Serving", propGridXpression.SelectedObject)), (int)scoreboardData.Serving);
-            scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
         }
 
         static string ReplaceLastOccurrence(string Source, string Find, string Replace)
@@ -1605,7 +1680,7 @@ namespace SportsController.Volleyball
 
             string _homeName = ConvertCustoms(Globals.GetObjectValue("HomeName", propGridEvent.SelectedObject));
             txtInfobox.Text = string.Format("{0} Red Card", _homeName);
-            scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+            updateInfoLastEdited(1);
         }
 
         private void btnAwayRedsDec_Click(object sender, EventArgs e)
@@ -1621,7 +1696,7 @@ namespace SportsController.Volleyball
 
             string _AwayName = ConvertCustoms(Globals.GetObjectValue("AwayName", propGridEvent.SelectedObject));
             txtInfobox.Text = string.Format("{0} Red Card", _AwayName);
-            scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+            updateInfoLastEdited(1);
         }
 
         private void btnHomeYellowsDec_Click(object sender, EventArgs e)
@@ -1637,7 +1712,7 @@ namespace SportsController.Volleyball
 
             string _homeName = ConvertCustoms(Globals.GetObjectValue("HomeName", propGridEvent.SelectedObject));
             txtInfobox.Text = string.Format("{0} Yellow Card", _homeName);
-            scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+            updateInfoLastEdited(1);
         }
 
         private void btnAwayYellowsDec_Click(object sender, EventArgs e)
@@ -1653,26 +1728,41 @@ namespace SportsController.Volleyball
 
             string _AwayName = ConvertCustoms(Globals.GetObjectValue("AwayName", propGridEvent.SelectedObject));
             txtInfobox.Text = string.Format("{0} Yellow Card", _AwayName);
-            scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+            updateInfoLastEdited(1);
         }
 
         private void cmbInfobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+            updateInfoLastEdited(0);
         }
 
         private void txtInfobox_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtInfobox.Text.Trim()))
-                scoreboardData.InfoLastEdited = 1; // 0 = select box, 1 = text box
+                updateInfoLastEdited(1);
             else
-                scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                updateInfoLastEdited(0);
         }
 
         private void btnInfoboxClear_Click(object sender, EventArgs e)
         {
             txtInfobox.Text = string.Empty;
-            scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+            updateInfoLastEdited(0);
+        }
+
+        private void btnAutoPoint_Click(object sender, EventArgs e)
+        {
+            _autoPoint = !_autoPoint;
+            if (_autoPoint)
+            {
+                btnAutoPoint.Text = "Auto-Point Enabled";
+                btnAutoPoint.BackColor = System.Drawing.Color.DarkGreen;
+            }
+            else
+            {
+                btnAutoPoint.Text = "Auto-Point Disabled";
+                btnAutoPoint.BackColor = System.Drawing.Color.DarkRed;
+            }
         }
 
         private void cmbHomeL3PlayerNumber_SelectedIndexChanged(object sender, EventArgs e)
@@ -2144,7 +2234,7 @@ namespace SportsController.Volleyball
                 // Turn off all of the "info" layer take items
                 TurnOffTakeItemLayer(takeItem);
                 // Revert to w/e our select box is for next time we show the bug
-                scoreboardData.InfoLastEdited = 0; // 0 = select box, 1 = text box
+                updateInfoLastEdited(0);
             }
         }
 

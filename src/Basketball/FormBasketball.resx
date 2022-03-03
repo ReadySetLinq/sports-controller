@@ -117,75 +117,108 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label62.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnAutoPoint.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label62.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  <data name="btnAutoPoint.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
-  <data name="label62.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 57</value>
+  <data name="btnAutoPoint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="label62.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 20</value>
+  <data name="btnAutoPoint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>422, 11</value>
   </data>
-  <data name="label62.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
+  <data name="btnAutoPoint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 31</value>
   </data>
-  <data name="label62.Text" xml:space="preserve">
-    <value>Data</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnAutoPoint.TabIndex" type="System.Int32, mscorlib">
+    <value>98</value>
   </data>
-  <data name="label62.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="btnAutoPoint.Text" xml:space="preserve">
+    <value>Auto-Point Enabled</value>
   </data>
-  <data name="&gt;&gt;label62.Name" xml:space="preserve">
-    <value>label62</value>
+  <data name="&gt;&gt;btnAutoPoint.Name" xml:space="preserve">
+    <value>btnAutoPoint</value>
   </data>
-  <data name="&gt;&gt;label62.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;btnAutoPoint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label62.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnAutoPoint.Parent" xml:space="preserve">
     <value>panel4</value>
   </data>
-  <data name="&gt;&gt;label62.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnAutoPoint.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label63.AutoSize" type="System.Boolean, mscorlib">
+  <data name="lblCmbInfobox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label63.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="lblCmbInfobox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt, style=Bold</value>
   </data>
-  <data name="label63.Location" type="System.Drawing.Point, System.Drawing">
-    <value>253, 58</value>
+  <data name="lblCmbInfobox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 55</value>
   </data>
-  <data name="label63.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 20</value>
+  <data name="lblCmbInfobox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 22</value>
   </data>
-  <data name="label63.TabIndex" type="System.Int32, mscorlib">
-    <value>61</value>
+  <data name="lblCmbInfobox.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
   </data>
-  <data name="label63.Text" xml:space="preserve">
-    <value>Custom Info</value>
+  <data name="lblCmbInfobox.Text" xml:space="preserve">
+    <value>Data</value>
   </data>
-  <data name="label63.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="lblCmbInfobox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;label63.Name" xml:space="preserve">
-    <value>label63</value>
+  <data name="&gt;&gt;lblCmbInfobox.Name" xml:space="preserve">
+    <value>lblCmbInfobox</value>
   </data>
-  <data name="&gt;&gt;label63.Type" xml:space="preserve">
+  <data name="&gt;&gt;lblCmbInfobox.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label63.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblCmbInfobox.Parent" xml:space="preserve">
     <value>panel4</value>
   </data>
-  <data name="&gt;&gt;label63.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblCmbInfobox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblTxtInfobox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblTxtInfobox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  </data>
+  <data name="lblTxtInfobox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>253, 55</value>
+  </data>
+  <data name="lblTxtInfobox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 22</value>
+  </data>
+  <data name="lblTxtInfobox.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="lblTxtInfobox.Text" xml:space="preserve">
+    <value>Custom Info</value>
+  </data>
+  <data name="lblTxtInfobox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblTxtInfobox.Name" xml:space="preserve">
+    <value>lblTxtInfobox</value>
+  </data>
+  <data name="&gt;&gt;lblTxtInfobox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTxtInfobox.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;lblTxtInfobox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="btnInfoboxClear.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
@@ -193,7 +226,7 @@
     <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
   </data>
   <data name="btnInfoboxClear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>508, 57</value>
+    <value>515, 57</value>
   </data>
   <data name="btnInfoboxClear.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
@@ -214,10 +247,10 @@
     <value>panel4</value>
   </data>
   <data name="&gt;&gt;btnInfoboxClear.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="txtInfobox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 57</value>
+    <value>366, 57</value>
   </data>
   <data name="txtInfobox.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 20</value>
@@ -235,7 +268,7 @@
     <value>panel4</value>
   </data>
   <data name="&gt;&gt;txtInfobox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="cmbInfobox.Location" type="System.Drawing.Point, System.Drawing">
     <value>66, 57</value>
@@ -256,7 +289,7 @@
     <value>panel4</value>
   </data>
   <data name="&gt;&gt;cmbInfobox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label64.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 20.25pt, style=Bold</value>
@@ -286,7 +319,7 @@
     <value>panel4</value>
   </data>
   <data name="&gt;&gt;label64.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 270</value>
