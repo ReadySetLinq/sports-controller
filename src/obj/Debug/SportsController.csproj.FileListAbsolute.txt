@@ -32,3 +32,4 @@ C:\git\sports-controller\src\obj\Debug\en-CA\SportsController.resources.dll
 C:\git\sports-controller\src\obj\Debug\SportsController.csproj.CopyComplete
 C:\git\sports-controller\src\obj\Debug\SportsController.exe
 C:\git\sports-controller\src\obj\Debug\SportsController.pdb
+C:\git\sports-controller\src\obj\Debug\SportsController.csprojAssemblyReference.cache

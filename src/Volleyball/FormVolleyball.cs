@@ -1079,10 +1079,28 @@ namespace SportsController.Volleyball
 
         private void populateTeamLowerThirds(Teams team)
         {
+            void selectLast(ComboBox cmbBox = null, object selection = null)
+            {
+                if (cmbBox == null || selection == null) return;
+
+                int index = cmbBox.Items.IndexOf(selection);
+                if (index != -1)
+                    cmbBox.SelectedIndex = index;
+                else
+                    cmbBox.SelectedIndex = 0;
+            }
+
             if (team == Teams.None) return;
 
             if (team == Teams.Home)
             {
+                object HomeL3PlayerNumber = cmbHomeL3PlayerNumber.SelectedItem;
+                object HomeL3PlayerName = cmbHomeL3PlayerName.SelectedItem;
+                object HomeL3PlayerStat1 = cmbHomeL3PlayerStat1.SelectedItem;
+                object HomeL3PlayerStat2 = cmbHomeL3PlayerStat2.SelectedItem;
+                object HomeL3PlayerStat3 = cmbHomeL3PlayerStat3.SelectedItem;
+                object HomeL3CoachName = cmbHomeL3CoachName.SelectedItem;
+
                 DataGridView _rosters = dataGridRosterHome;
                 DataGridView _coaches = dataGridCoachesHome;
 
@@ -1131,15 +1149,22 @@ namespace SportsController.Volleyball
                 _rosters.AllowUserToAddRows = true;
                 _coaches.AllowUserToAddRows = true;
 
-                cmbHomeL3PlayerNumber.SelectedIndex = 0;
-                cmbHomeL3PlayerName.SelectedIndex = 0;
-                cmbHomeL3PlayerStat1.SelectedIndex = 0;
-                cmbHomeL3PlayerStat2.SelectedIndex = 0;
-                cmbHomeL3PlayerStat3.SelectedIndex = 0;
-                cmbHomeL3CoachName.SelectedIndex = 0;
+                selectLast(cmbHomeL3PlayerNumber, HomeL3PlayerNumber);
+                selectLast(cmbHomeL3PlayerName, HomeL3PlayerName);
+                selectLast(cmbHomeL3PlayerStat1, HomeL3PlayerStat1);
+                selectLast(cmbHomeL3PlayerStat2, HomeL3PlayerStat2);
+                selectLast(cmbHomeL3PlayerStat3, HomeL3PlayerStat3);
+                selectLast(cmbHomeL3CoachName, HomeL3CoachName);
             } 
             else if (team == Teams.Away)
             {
+                object AwayL3PlayerNumber = cmbAwayL3PlayerNumber.SelectedItem;
+                object AwayL3PlayerName = cmbAwayL3PlayerName.SelectedItem;
+                object AwayL3PlayerStat1 = cmbAwayL3PlayerStat1.SelectedItem;
+                object AwayL3PlayerStat2 = cmbAwayL3PlayerStat2.SelectedItem;
+                object AwayL3PlayerStat3 = cmbAwayL3PlayerStat3.SelectedItem;
+                object AwayL3CoachName = cmbAwayL3CoachName.SelectedItem;
+
                 DataGridView _rosters = dataGridRosterAway;
                 DataGridView _coaches = dataGridCoachesAway;
 
@@ -1188,12 +1213,12 @@ namespace SportsController.Volleyball
                 _rosters.AllowUserToAddRows = true;
                 _coaches.AllowUserToAddRows = true;
 
-                cmbAwayL3PlayerNumber.SelectedIndex = 0;
-                cmbAwayL3PlayerName.SelectedIndex = 0;
-                cmbAwayL3PlayerStat1.SelectedIndex = 0;
-                cmbAwayL3PlayerStat2.SelectedIndex = 0;
-                cmbAwayL3PlayerStat3.SelectedIndex = 0;
-                cmbAwayL3CoachName.SelectedIndex = 0;
+                selectLast(cmbAwayL3PlayerNumber, AwayL3PlayerNumber);
+                selectLast(cmbAwayL3PlayerName, AwayL3PlayerName);
+                selectLast(cmbAwayL3PlayerStat1, AwayL3PlayerStat1);
+                selectLast(cmbAwayL3PlayerStat2, AwayL3PlayerStat2);
+                selectLast(cmbAwayL3PlayerStat3, AwayL3PlayerStat3);
+                selectLast(cmbAwayL3CoachName, AwayL3CoachName);
             }
         }
 
