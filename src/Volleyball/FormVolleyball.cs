@@ -1780,9 +1780,22 @@ namespace SportsController.Volleyball
             updateInfoLastEdited(1);
         }
 
+        private void lblCmbInfobox_Click(object sender, EventArgs e)
+        {
+            updateInfoLastEdited(0);
+        }
+
         private void cmbInfobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateInfoLastEdited(0);
+        }
+
+        private void lblTxtInfobox_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtInfobox.Text.Trim()))
+                updateInfoLastEdited(1);
+            else
+                updateInfoLastEdited(0);
         }
 
         private void txtInfobox_TextChanged(object sender, EventArgs e)

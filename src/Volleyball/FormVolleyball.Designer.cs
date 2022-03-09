@@ -34,6 +34,7 @@
             this.tabWindows = new System.Windows.Forms.TabControl();
             this.tabPageScoreboard = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnAutoPoint = new System.Windows.Forms.Button();
             this.lblCmbInfobox = new System.Windows.Forms.Label();
             this.lblTxtInfobox = new System.Windows.Forms.Label();
             this.btnInfoboxClear = new System.Windows.Forms.Button();
@@ -281,7 +282,6 @@
             this.xpressionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeAllOfflineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAutoPoint = new System.Windows.Forms.Button();
             this.tabWindows.SuspendLayout();
             this.tabPageScoreboard.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -372,12 +372,23 @@
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
             // 
+            // btnAutoPoint
+            // 
+            this.btnAutoPoint.BackColor = System.Drawing.Color.DarkGreen;
+            resources.ApplyResources(this.btnAutoPoint, "btnAutoPoint");
+            this.btnAutoPoint.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnAutoPoint.Name = "btnAutoPoint";
+            this.btnAutoPoint.Tag = "Automatically show the point infobox on change";
+            this.btnAutoPoint.UseVisualStyleBackColor = false;
+            this.btnAutoPoint.Click += new System.EventHandler(this.btnAutoPoint_Click);
+            // 
             // lblCmbInfobox
             // 
             resources.ApplyResources(this.lblCmbInfobox, "lblCmbInfobox");
             this.lblCmbInfobox.BackColor = System.Drawing.Color.DarkGreen;
             this.lblCmbInfobox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblCmbInfobox.Name = "lblCmbInfobox";
+            this.lblCmbInfobox.Click += new System.EventHandler(this.lblCmbInfobox_Click);
             // 
             // lblTxtInfobox
             // 
@@ -385,6 +396,7 @@
             this.lblTxtInfobox.BackColor = System.Drawing.Color.DarkRed;
             this.lblTxtInfobox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTxtInfobox.Name = "lblTxtInfobox";
+            this.lblTxtInfobox.Click += new System.EventHandler(this.lblTxtInfobox_Click);
             // 
             // btnInfoboxClear
             // 
@@ -2484,16 +2496,6 @@
             this.takeAllOfflineToolStripMenuItem.Name = "takeAllOfflineToolStripMenuItem";
             resources.ApplyResources(this.takeAllOfflineToolStripMenuItem, "takeAllOfflineToolStripMenuItem");
             this.takeAllOfflineToolStripMenuItem.Click += new System.EventHandler(this.takeAllOfflineToolStripMenuItem_Click);
-            // 
-            // btnAutoPoint
-            // 
-            this.btnAutoPoint.BackColor = System.Drawing.Color.DarkGreen;
-            resources.ApplyResources(this.btnAutoPoint, "btnAutoPoint");
-            this.btnAutoPoint.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnAutoPoint.Name = "btnAutoPoint";
-            this.btnAutoPoint.Tag = "Automatically show the point infobox on change";
-            this.btnAutoPoint.UseVisualStyleBackColor = false;
-            this.btnAutoPoint.Click += new System.EventHandler(this.btnAutoPoint_Click);
             // 
             // FormVolleyball
             // 
