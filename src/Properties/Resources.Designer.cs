@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportsController.Properties {
+namespace SportsControllerMini.Properties {
     using System;
     
     

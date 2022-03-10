@@ -1,14 +1,14 @@
 ﻿namespace SportsController.Basketball
 {
 
-    enum Teams
+    public enum Teams
     {
         None = 0,
         Home = 1,
         Away = 2
     }
 
-    class Scoreboard
+    public class Scoreboard
     {
         #region Variables
         // Home Data

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportsController.Properties {
+namespace SportsControllerMini.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

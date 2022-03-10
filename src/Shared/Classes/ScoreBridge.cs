@@ -6,7 +6,7 @@ using SportsController.Volleyball;
 
 namespace SportsController.Shared
 {
-    class LastScoreBridge
+    public class LastScoreBridge
     {
         public int HomeScore { get; set; } = 0;
         public int AwayScore { get; set; } = 0;

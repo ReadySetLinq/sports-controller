@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SportsController.Volleyball
 {
-    class SetResults
+    public class SetResults
     {
         #region Variables
         private readonly Dictionary<int, int> _setOne = new Dictionary<int, int>();

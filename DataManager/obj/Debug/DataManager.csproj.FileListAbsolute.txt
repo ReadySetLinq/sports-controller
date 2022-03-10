@@ -70,3 +70,4 @@ C:\git\sports-controller\DataManager\obj\Debug\DataManager.csproj.CoreCompileInp
 C:\git\sports-controller\DataManager\obj\Debug\DataManager.csproj.CopyComplete
 C:\git\sports-controller\DataManager\obj\Debug\DataManager.exe
 C:\git\sports-controller\DataManager\obj\Debug\DataManager.pdb
+C:\git\sports-controller\DataManager\obj\Debug\DataManager.csprojAssemblyReference.cache

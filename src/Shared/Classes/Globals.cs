@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace SportsController.Shared
 {
-    static class Globals
+    public static class Globals
     {
         public static bool DEBUG_MODE { set; get; } = false;
 

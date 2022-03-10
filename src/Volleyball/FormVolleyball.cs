@@ -29,6 +29,10 @@ namespace SportsController.Volleyball
         int _credits_namesPerPage = 0;
         int _credits_rowCount = 0;
         int _credits_rowIndex = 0;
+        int _home_roster_id = 0;
+        int _home_coach_id = 0;
+        int _away_roster_id = 1;
+        int _away_coach_id = 1;
 
         #endregion
 
@@ -393,22 +397,42 @@ namespace SportsController.Volleyball
                     return;
                 }
 
+                Dictionary<int, string> rosterWorkSheet = Excel.GetWorksheets(_rostersFile);
+                if (rosterWorkSheet.Count > 1)
+                {
+                    try
+                    {
+                        _home_roster_id = rosterWorkSheet.Where(item => item.Value.ToLower() == _homeTeam.ToLower()).First().Key;
+                        _away_roster_id = rosterWorkSheet.Where(item => item.Value.ToLower() == _awayTeam.ToLower()).First().Key;
+                    } catch { }
+                }
+                Dictionary<int, string> coachWorkSheet = Excel.GetWorksheets(_coachesFile);
+                if (rosterWorkSheet.Count > 1)
+                {
+                    try
+                    {
+                        _home_coach_id = rosterWorkSheet.Where(item => item.Value.ToLower() == _homeTeam.ToLower()).First().Key;
+                        _away_coach_id = rosterWorkSheet.Where(item => item.Value.ToLower() == _awayTeam.ToLower()).First().Key;
+                    }
+                    catch { }
+                }
+
                 // Load home team data grid views
                 dataGridRosterHome.Columns.Clear();
-                dataGridRosterHome.DataSource = Excel.GetDataTable(_rostersFile, 0);
+                dataGridRosterHome.DataSource = Excel.GetDataTable(_rostersFile, _home_roster_id >= 0 ? _home_roster_id : 0);
                 if (dataGridRosterHome.ColumnCount > 0 && dataGridRosterHome.Columns.Contains("Number"))
                     dataGridRosterHome.Sort(dataGridRosterHome.Columns["Number"], System.ComponentModel.ListSortDirection.Ascending);
                 dataGridCoachesHome.Columns.Clear();
-                dataGridCoachesHome.DataSource = Excel.GetDataTable(_coachesFile, 0);
+                dataGridCoachesHome.DataSource = Excel.GetDataTable(_coachesFile, _home_coach_id >= 0 ? _home_coach_id : 0);
                 populateTeamLowerThirds(Teams.Home);
 
                 // Load away team data grid views
                 dataGridRosterAway.Columns.Clear();
-                dataGridRosterAway.DataSource = Excel.GetDataTable(_rostersFile, 1);
+                dataGridRosterAway.DataSource = Excel.GetDataTable(_rostersFile, _away_roster_id >= 0 ? _away_roster_id : 1);
                 if (dataGridRosterAway.ColumnCount > 0 && dataGridRosterAway.Columns.Contains("Number"))
                     dataGridRosterAway.Sort(dataGridRosterAway.Columns["Number"], System.ComponentModel.ListSortDirection.Ascending);
                 dataGridCoachesAway.Columns.Clear();
-                dataGridCoachesAway.DataSource = Excel.GetDataTable(_coachesFile, 1);
+                dataGridCoachesAway.DataSource = Excel.GetDataTable(_coachesFile, _away_coach_id >= 0 ? _away_coach_id : 0);
                 populateTeamLowerThirds(Teams.Away);
 
                 // Load the team stats
@@ -1756,9 +1780,22 @@ namespace SportsController.Volleyball
             updateInfoLastEdited(1);
         }
 
+        private void lblCmbInfobox_Click(object sender, EventArgs e)
+        {
+            updateInfoLastEdited(0);
+        }
+
         private void cmbInfobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateInfoLastEdited(0);
+        }
+
+        private void lblTxtInfobox_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtInfobox.Text.Trim()))
+                updateInfoLastEdited(1);
+            else
+                updateInfoLastEdited(0);
         }
 
         private void txtInfobox_TextChanged(object sender, EventArgs e)
@@ -2062,11 +2099,11 @@ namespace SportsController.Volleyball
             {
                 dataGridRosterHome.RemoveEmptyRows();
                 dataGridRosterHome.Sort(dataGridRosterHome.Columns["Number"], System.ComponentModel.ListSortDirection.Ascending);
-                SaveDataTable((DataTable)dataGridRosterHome.DataSource, _rostersFile, 0);
+                SaveDataTable((DataTable)dataGridRosterHome.DataSource, _rostersFile, _home_roster_id >= 0 ? _home_roster_id : 0);
 
                 dataGridRosterAway.RemoveEmptyRows();
                 dataGridRosterAway.Sort(dataGridRosterAway.Columns["Number"], System.ComponentModel.ListSortDirection.Ascending);
-                SaveDataTable((DataTable)dataGridRosterAway.DataSource, _rostersFile, 1);
+                SaveDataTable((DataTable)dataGridRosterAway.DataSource, _rostersFile, _away_roster_id >= 0 ? _away_roster_id : 0);
             }
         }
 
@@ -2099,10 +2136,10 @@ namespace SportsController.Volleyball
             if (!string.IsNullOrWhiteSpace(eventDataDirectoryPath) || !string.IsNullOrWhiteSpace(_coachesFile))
             {
                 dataGridCoachesHome.RemoveEmptyRows();
-                SaveDataTable((DataTable)dataGridCoachesHome.DataSource, _coachesFile, 0);
+                SaveDataTable((DataTable)dataGridCoachesHome.DataSource, _coachesFile, _home_coach_id >= 0 ? _home_coach_id : 0);
 
                 dataGridCoachesAway.RemoveEmptyRows();
-                SaveDataTable((DataTable)dataGridCoachesAway.DataSource, _coachesFile, 1);
+                SaveDataTable((DataTable)dataGridCoachesAway.DataSource, _coachesFile, _away_coach_id >= 0 ? _away_coach_id : 0);
             }
         }
 

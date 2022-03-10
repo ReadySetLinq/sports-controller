@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace SportsController.Volleyball
 {
-    enum Teams
+    public enum Teams
     {
         None = 0,
         Home = 1,
         Away = 2
     }
 
-    class Scoreboard
+    public class Scoreboard
     {
         #region Variables
         public int HomePoints { get; set; } = 0;
