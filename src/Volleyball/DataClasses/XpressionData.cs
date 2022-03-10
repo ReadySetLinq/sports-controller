@@ -565,11 +565,19 @@ namespace SportsController.Volleyball
 
         [
             Category("Lower Thirds - Player Info"),
-            DisplayName("Take ID"),
+            DisplayName("Home Take ID"),
             DefaultValue(0201),
-            Description("The player info takeItem ID."),
+            Description("The home team player info takeItem ID."),
         ]
-        public int L3_PlayerInfo_ID { get; set; } = 0201;
+        public int L3_PlayerInfo_Home_ID { get; set; } = 0201;
+
+        [
+            Category("Lower Thirds - Player Info"),
+            DisplayName("Away Take ID"),
+            DefaultValue(0201),
+            Description("The away team player info takeItem ID."),
+        ]
+        public int L3_PlayerInfo_Away_ID { get; set; } = 0201;
 
         [
             Category("Lower Thirds - Player Info"),
@@ -605,11 +613,19 @@ namespace SportsController.Volleyball
 
         [
             Category("Lower Thirds - Player Stats"),
-            DisplayName("Take ID"),
+            DisplayName("Home Take ID"),
             DefaultValue(0202),
-            Description("The player stats takeItem ID."),
+            Description("The home team player stats takeItem ID."),
         ]
-        public int L3_PlayerStats_ID { get; set; } = 0202;
+        public int L3_PlayerStats_Home_ID { get; set; } = 0202;
+
+        [
+            Category("Lower Thirds - Player Stats"),
+            DisplayName("Away Take ID"),
+            DefaultValue(0202),
+            Description("The away team player stats takeItem ID."),
+        ]
+        public int L3_PlayerStats_Away_ID { get; set; } = 0202;
 
         [
             Category("Lower Thirds - Player Stats"),
@@ -652,15 +668,23 @@ namespace SportsController.Volleyball
         public string L3_PlayerStats_Highlight { get; set; } = "txtHighlight";
 
         [
-            Category("Lower Thirds - Team Stats"),
-            DisplayName("Take ID"),
+            Category("Lower Thirds - Team Info"),
+            DisplayName("Home Take ID"),
             DefaultValue(0203),
-            Description("The team info takeItem ID."),
+            Description("The home team info takeItem ID."),
         ]
-        public int L3_TeamInfo_ID { get; set; } = 0203;
+        public int L3_TeamInfo_Home_ID { get; set; } = 0203;
 
         [
-            Category("Lower Thirds - Team Stats"),
+            Category("Lower Thirds - Team Info"),
+            DisplayName("Away Take ID"),
+            DefaultValue(0203),
+            Description("The away team info takeItem ID."),
+        ]
+        public int L3_TeamInfo_Away_ID { get; set; } = 0203;
+
+        [
+            Category("Lower Thirds - Team Info"),
             DisplayName("Team quad"),
             DefaultValue("quadTeam"),
             Description("The team info team background quad."),
@@ -668,7 +692,7 @@ namespace SportsController.Volleyball
         public string L3_TeamInfo_TeamQuad { get; set; } = "TeamLogo";
 
         [
-            Category("Lower Thirds - Team Stats"),
+            Category("Lower Thirds - Team Info"),
             DisplayName("Title"),
             DefaultValue("txtTitle"),
             Description("The teams title text box name."),
@@ -676,7 +700,7 @@ namespace SportsController.Volleyball
         public string L3_TeamInfo_Title { get; set; } = "txtTitle";
 
         [
-            Category("Lower Thirds - Team Stats"),
+            Category("Lower Thirds - Team Info"),
             DisplayName("Info"),
             DefaultValue("txtInfo"),
             Description("The teams information text box name."),

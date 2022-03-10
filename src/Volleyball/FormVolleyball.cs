@@ -749,7 +749,7 @@ namespace SportsController.Volleyball
             this.Visible = false;
             this.Enabled = false;
             FormLoading frmLoading = new FormLoading();
-            frmLoading.Setup(0, 23); // The starting value and max value for the loading bar
+            frmLoading.Setup(0, 26); // The starting value and max value for the loading bar
             frmLoading.Visible = true;
             frmLoading.Enabled = true;
 
@@ -815,11 +815,17 @@ namespace SportsController.Volleyball
             // Load Lower Third Take Items
             LoadTakeID("L3_EventExtras_ID", _defaultXPN.L3_EventExtras_ID, btnTakeL3Setup);
             frmLoading.Increase();
-            LoadTakeID("L3_PlayerInfo_ID", _defaultXPN.L3_PlayerInfo_ID);
+            LoadTakeID("L3_PlayerInfo_Home_ID", _defaultXPN.L3_PlayerInfo_Home_ID);
             frmLoading.Increase();
-            LoadTakeID("L3_PlayerStats_ID", _defaultXPN.L3_PlayerStats_ID);
+            LoadTakeID("L3_PlayerInfo_Away_ID", _defaultXPN.L3_PlayerInfo_Away_ID);
             frmLoading.Increase();
-            LoadTakeID("L3_TeamInfo_ID", _defaultXPN.L3_TeamInfo_ID);
+            LoadTakeID("L3_PlayerStats_Home_ID", _defaultXPN.L3_PlayerStats_Home_ID);
+            frmLoading.Increase();
+            LoadTakeID("L3_PlayerStats_Away_ID", _defaultXPN.L3_PlayerStats_Away_ID);
+            frmLoading.Increase();
+            LoadTakeID("L3_TeamInfo_Home_ID", _defaultXPN.L3_TeamInfo_Home_ID);
+            frmLoading.Increase();
+            LoadTakeID("L3_TeamInfo_Away_ID", _defaultXPN.L3_TeamInfo_Away_ID);
             frmLoading.Increase();
             LoadTakeID("L3_Custom_ID", _defaultXPN.L3_Custom_ID, btnTakeCustomL3);
             frmLoading.Increase();
@@ -2302,7 +2308,7 @@ namespace SportsController.Volleyball
 
         private void btnTakeHomePlayerStats_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerStats_ID").First();
+            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerStats_Home_ID").First();
 
             if (ToggleTakeButton(btnTakeHomePlayerStats))
             {
@@ -2320,7 +2326,7 @@ namespace SportsController.Volleyball
 
         private void btnTakeHomePlayerInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerInfo_ID").First();
+            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerInfo_Home_ID").First();
 
             if (ToggleTakeButton(btnTakeHomePlayerInfo))
             {
@@ -2338,7 +2344,7 @@ namespace SportsController.Volleyball
 
         private void btnTakeHomeCoachInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_TeamInfo_ID").First();
+            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_TeamInfo_Home_ID").First();
 
             if (ToggleTakeButton(btnTakeHomeCoachInfo))
             {
@@ -2356,7 +2362,7 @@ namespace SportsController.Volleyball
 
         private void btnTakeAwayPlayerStats_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerStats_ID").First();
+            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerStats_Away_ID").First();
 
             if (ToggleTakeButton(btnTakeAwayPlayerStats))
             {
@@ -2374,7 +2380,7 @@ namespace SportsController.Volleyball
 
         private void btnTakeAwayPlayerInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerInfo_ID").First();
+            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerInfo_Away_ID").First();
 
             if (ToggleTakeButton(btnTakeAwayPlayerInfo))
             {
@@ -2392,7 +2398,7 @@ namespace SportsController.Volleyball
 
         private void btnTakeAwayCoachInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_TeamInfo_ID").First();
+            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_TeamInfo_Away_ID").First();
 
             if (ToggleTakeButton(btnTakeAwayCoachInfo))
             {

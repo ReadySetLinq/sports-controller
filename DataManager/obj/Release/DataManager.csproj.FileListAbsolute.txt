@@ -61,7 +61,6 @@ E:\git\sports-controller\DataManager\bin\Release\System.ComponentModel.Annotatio
 E:\git\sports-controller\DataManager\bin\Release\EPPlus.xml
 E:\git\sports-controller\DataManager\bin\Release\Microsoft.IO.RecyclableMemoryStream.xml
 E:\git\sports-controller\DataManager\bin\Release\Newtonsoft.Json.xml
-E:\git\sports-controller\DataManager\obj\Release\DataManager.csprojAssemblyReference.cache
 E:\git\sports-controller\DataManager\obj\Release\DataManager.FormDataManager.resources
 E:\git\sports-controller\DataManager\obj\Release\DataManager.FormWorkSheetSelector.resources
 E:\git\sports-controller\DataManager\obj\Release\DataManager.Properties.Resources.resources

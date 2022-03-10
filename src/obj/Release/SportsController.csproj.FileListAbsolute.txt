@@ -87,7 +87,6 @@ E:\git\sports-controller\src\bin\Release\Microsoft.IO.RecyclableMemoryStream.xml
 E:\git\sports-controller\src\bin\Release\Newtonsoft.Json.xml
 E:\git\sports-controller\src\bin\Release\nunit.framework.pdb
 E:\git\sports-controller\src\bin\Release\nunit.framework.xml
-E:\git\sports-controller\src\obj\Release\SportsController.csprojAssemblyReference.cache
 E:\git\sports-controller\src\obj\Release\SportsController.Basketball.FormBasketball.resources
 E:\git\sports-controller\src\obj\Release\SportsController.FormLauncher.resources
 E:\git\sports-controller\src\obj\Release\SportsController.Properties.Resources.resources
