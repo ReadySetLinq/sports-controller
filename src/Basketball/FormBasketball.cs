@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using SportsController.Shared;
+using SportsController.Shared.Classes;
 
 namespace SportsController.Basketball
 {
@@ -16,15 +17,14 @@ namespace SportsController.Basketball
     {
         #region Variables
 
-        Xpression _Xpression;
-        readonly string xpressionDataFilePath = Environment.CurrentDirectory + "\\config\\bb\\xpressionData.json";
+        readonly string vMixDataFilePath = Environment.CurrentDirectory + "\\config\\bb\\vMixData.json";
         readonly string scoreBridgeDataFilePath = Environment.CurrentDirectory + "\\config\\bb\\scoreBridgeData.json";
         readonly string eventDataFilePath = Environment.CurrentDirectory + "\\config\\bb\\eventData.json";
         readonly string customsDataFilePath = Environment.CurrentDirectory + "\\config\\bb\\customsData.json";
         string eventDataDirectoryPath = Environment.CurrentDirectory + "\\data\\bb";
         Scoreboard scoreboardData;
         ScoreBridge scoreBridge;
-        List<TakeItem> takeItems;
+        List<Input> takeInputs;
         Timer _creditsTmr = new Timer();
         Timer _infoTmr = new Timer();
         bool _autoPoint = true;
@@ -57,22 +57,21 @@ namespace SportsController.Basketball
             SelectDirectory();
 
             // Create the defaults.
-            _Xpression = new Xpression();
-            XpressionData xpressionData = new XpressionData();
+            vMixData vMixData = new vMixData();
             EventData eventData = new EventData();
             scoreboardData = new Scoreboard();
             scoreBridge = new ScoreBridge(this);
-            takeItems = new List<TakeItem>();
+            takeInputs = new List<Input>();
 
             // Assign SelectedObject.
-            propGridXpression.SelectedObject = xpressionData;
+            propGridXpression.SelectedObject = vMixData;
             propGridXpression.CollapseAllGridItems();
             propGridEvent.SelectedObject = eventData;
             propGridEvent.CollapseAllGridItems();
 
             LoadCustomsData();
             LoadEventData();
-            LoadXpressionData();
+            LoadvMixData();
             LoadScoreBridgenData();
             btnShotClockDisable.PerformClick();
         }
@@ -168,67 +167,61 @@ namespace SportsController.Basketball
             Excel.SaveDataTable(dataTable, path + "\\" + teamName + ".xlsx", index);
         }
 
-        public List<TakeItem> GetAllTakeItemsOnLayer(int layer)
+        public List<Input> GetAlltakeInputsOnLayer(int layer)
         {
-            return takeItems.Where(item => item.Layer == layer).ToList();
+            return takeInputs.Where(item => item.Layer == layer).ToList();
         }
 
-        public List<TakeItem> GetAllTakeItemsOnLayerExcept(int layer, int id)
+        public List<Input> GetAlltakeInputsOnLayerExcept(int layer, string id)
         {
-            return takeItems.Where(item => item.Layer == layer && item.ID != id).ToList();
+            return takeInputs.Where(item => item.Layer == layer && item.ID != id).ToList();
         }
 
-        public List<int> GetAllTakeIdsOnLayer(int layer)
+        public List<string> GetAllTakeIdsOnLayer(int layer)
         {
-            return takeItems.Where(item => item.Layer == layer).Select(pair => pair.ID).ToList();
+            return takeInputs.Where(item => item.Layer == layer).Select(pair => pair.ID).ToList();
         }
 
-        public void SetTakeItemsOffline(List<TakeItem> items)
+        public void SettakeInputsOffline(List<Input> items)
         {
-            foreach (TakeItem takeItem in items)
+            foreach (Input takeItem in items)
                 takeItem.SetOffline();
-        }
-
-        public void SetTakeIdsOffline(List<int> takeIDs)
-        {
-            foreach (int takeID in takeIDs)
-                _Xpression.SetTakeItemOffline(takeID);
         }
 
         public void SetLayerTakeIdsOffline(int layer)
         {
             // First get all of the take items on the layer
-            List<TakeItem> takeItemss = GetAllTakeItemsOnLayer(layer);
+            List<Input> takeInputss = GetAlltakeInputsOnLayer(layer);
             // Set all of the take itenms on this layer offline
-            SetTakeItemsOffline(takeItemss);
+            SettakeInputsOffline(takeInputss);
         }
 
-        public void SetLayerTakeIdsOfflineExcept(int layer, int id)
+        public void SetLayerTakeIdsOfflineExcept(int layer, string id)
         {
             // First get all of the take items on the layer except the selected one
-            List<TakeItem> takeItemss = GetAllTakeItemsOnLayerExcept(layer, id);
+            List<Input> takeInputss = GetAlltakeInputsOnLayerExcept(layer, id);
             // Set all of the other take itenms on this layer offline
-            SetTakeItemsOffline(takeItemss);
+            SettakeInputsOffline(takeInputss);
         }
 
         // Load data for the scenes config window
-        public void LoadXpressionData()
+        public void LoadvMixData()
         {
             try
             {
-                if (File.Exists(xpressionDataFilePath))
+                if (File.Exists(vMixDataFilePath))
                 {
-                    using StreamReader r = new StreamReader(xpressionDataFilePath);
+                    using StreamReader r = new StreamReader(vMixDataFilePath);
                     string json = r.ReadToEnd();
                     JObject obj = JObject.Parse(json);
                     JsonSerializer serializer = new JsonSerializer();
-                    propGridXpression.SelectedObject = (XpressionData)serializer.Deserialize(new JTokenReader(obj), typeof(XpressionData));
+                    propGridXpression.SelectedObject = (vMixData)serializer.Deserialize(new JTokenReader(obj), typeof(vMixData));
                     propGridXpression.CollapseAllGridItems();
                     LoadFromXpression();
                 }
                 else
                 {
-                    SaveXpressionData();
+                    SavevMixData();
                 }
                 scoreboardData.Reset();
                 populateScoreboard();
@@ -237,12 +230,12 @@ namespace SportsController.Basketball
         }
 
         // Save the Xpression data to the config file
-        public void SaveXpressionData()
+        public void SavevMixData()
         {
             object data = propGridXpression.SelectedObject;
             if (data != null)
             {
-                using StreamWriter file = File.CreateText(xpressionDataFilePath);
+                using StreamWriter file = File.CreateText(vMixDataFilePath);
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, data);
                 // Reload all data from Xpression based off our new config
@@ -654,7 +647,7 @@ namespace SportsController.Basketball
         }
 
         // Turn on take ID and update setus of others
-        public bool TurnOnTakeItem(TakeItem takeItem)
+        public bool TurnOnTakeItem(Input takeItem)
         {
             bool _success = false;
 
@@ -663,8 +656,8 @@ namespace SportsController.Basketball
                 // Turn off all other buttons on the same layer
                 if (takeItem != null)
                 {
-                    int id = takeItem.ID;
-                    foreach (TakeItem item in GetAllTakeItemsOnLayer(takeItem.Layer))
+                    string id = takeItem.ID;
+                    foreach (Input item in GetAlltakeInputsOnLayer(takeItem.Layer))
                     {
                         // If it is not this button's takeItem but is online, turn it off
                         if (item.ID != id && item.IsOnline)
@@ -680,7 +673,7 @@ namespace SportsController.Basketball
         }
 
         // Turn off take ID and update setus of others
-        public bool TurnOffTakeItem(TakeItem takeItem)
+        public bool TurnOffTakeItem(Input takeItem)
         {
             bool _success = false;
 
@@ -698,8 +691,8 @@ namespace SportsController.Basketball
             return _success;
         }
 
-        // Turn off all take items on given takeItems layer
-        public bool TurnOffTakeItemLayer(TakeItem takeItem)
+        // Turn off all take items on given takeInputs layer
+        public bool TurnOffTakeItemLayer(Input takeItem)
         {
             bool _success = true;
             try
@@ -707,7 +700,7 @@ namespace SportsController.Basketball
                 // Turn off all other buttons on the same layer
                 if (takeItem != null)
                 {
-                    foreach (TakeItem item in GetAllTakeItemsOnLayer(takeItem.Layer))
+                    foreach (Input item in GetAlltakeInputsOnLayer(takeItem.Layer))
                     {
                         // If it is not this button's takeItem but is online, turn it off
                         if (item.IsOnline)
@@ -785,7 +778,7 @@ namespace SportsController.Basketball
 
         public void CheckInfoBugStatus()
         {
-            TakeItem infoItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+            Input infoItem = takeInputs.Where(item => item.Name == "Scorebug_Info_ID").First();
             if (infoItem.IsOnline)
             {
                 updateInfoLastEdited(0);
@@ -793,19 +786,21 @@ namespace SportsController.Basketball
             }
         }
 
-        public void LoadTakeID(string key, int defaultID, Button btn = null, bool checkLive = true)
+        public void LoadTakeID(string key, string defaultName, Button btn = null, bool checkLive = true)
         {
             try
             {
                 // Get the take ID as an int
-                if (!int.TryParse(ConvertCustoms(Globals.GetObjectValue(key, propGridXpression.SelectedObject)), out int takeID))
+                string takeName = ConvertCustoms(Globals.GetObjectValue(key, propGridXpression.SelectedObject));
+                if (string.IsNullOrEmpty(takeName))
                 {
                     // If failed to load, get the default value
-                    takeID = defaultID;
+                    takeName = defaultName;
                 }
+
                 // Add data to Take Items list   
-                TakeItem takeItm = new TakeItem(key, takeID, btn, _Xpression.GetTakeItem(takeID));
-                takeItems.Add(takeItm);
+                Input takeItm = new Input(key, takeName, btn, vMix.GetInputItem(takeName));
+                takeInputs.Add(takeItm);
                 // Get Xpression take item status
                 if (btn != null && checkLive)
                 {
@@ -833,71 +828,75 @@ namespace SportsController.Basketball
             this.Visible = false;
             this.Enabled = false;
             FormLoading frmLoading = new FormLoading();
-            frmLoading.Setup(0, 25); // The starting value and max value for the loading bar
+            frmLoading.Setup(0, 20); // The starting value and max value for the loading bar
             frmLoading.Visible = true;
             frmLoading.Enabled = true;
 
             try
             {
+                string widgetsInputName = ConvertCustoms(Globals.GetObjectValue("Widget_Input_Name", propGridXpression.SelectedObject));
+
                 // Get Widget Values
-                int homePoints = _Xpression.GetCounterWidgetValue(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Score", propGridXpression.SelectedObject)));
+                int homePoints = vMix.GetCounterWidgetValue(widgetsInputName, ConvertCustoms(Globals.GetObjectValue("Widget_Home_Score", propGridXpression.SelectedObject)));
                 if (homePoints > -1)
                 {
                     scoreboardData.HomePoints = homePoints;
                     lblHomePoints.Text = homePoints.ToString();
                 }
                 frmLoading.Increase();
-                int awayPoints = _Xpression.GetCounterWidgetValue(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Score", propGridXpression.SelectedObject)));
+                int awayPoints = vMix.GetCounterWidgetValue(widgetsInputName, ConvertCustoms(Globals.GetObjectValue("Widget_Away_Score", propGridXpression.SelectedObject)));
                 if (awayPoints > -1)
                 {
                     scoreboardData.AwayPoints = awayPoints;
                     lblAwayPoints.Text = awayPoints.ToString();
                 }
                 frmLoading.Increase();
-                int homeFouls = _Xpression.GetCounterWidgetValue(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Fouls", propGridXpression.SelectedObject)));
+                int homeFouls = vMix.GetCounterWidgetValue(widgetsInputName, ConvertCustoms(Globals.GetObjectValue("Widget_Home_Fouls", propGridXpression.SelectedObject)));
                 if (homeFouls > -1)
                 {
                     scoreboardData.HomeFouls = homeFouls;
                 }
                 frmLoading.Increase();
-                int awayFouls = _Xpression.GetCounterWidgetValue(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Fouls", propGridXpression.SelectedObject)));
+                int awayFouls = vMix.GetCounterWidgetValue(widgetsInputName, ConvertCustoms(Globals.GetObjectValue("Widget_Away_Fouls", propGridXpression.SelectedObject)));
                 if (awayFouls > -1)
                 {
                     scoreboardData.AwayFouls = awayFouls;
                 }
                 frmLoading.Increase();
-                int _tmrGameClock = _Xpression.GetClockWidgetTimerValue(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)));
-                if (_tmrGameClock > 0)
+                string _tmrGameClock = vMix.GetCounterWidgetString(widgetsInputName, ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)));
+                if (!_tmrGameClock.Equals(string.Empty))
                 {
-                    TimeSpan t = TimeSpan.FromMilliseconds(_tmrGameClock);
+                    TimeSpan t = TimeSpan.Parse(_tmrGameClock);
                     lblGameClock.Text = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
                     decimal.TryParse(string.Format("{0:D2}.{1:D2}", t.Minutes, t.Seconds), out decimal val);
                     numGameClock.Value = val;
                 }
                 frmLoading.Increase();
-                int _tmrShotClock = _Xpression.GetClockWidgetTimerValue(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)));
-                if (_tmrShotClock > 0)
+                string _tmrShotClock = vMix.GetCounterWidgetString(widgetsInputName, ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)));
+                if (!_tmrShotClock.Equals(string.Empty))
                 {
-                    TimeSpan t = TimeSpan.FromMilliseconds(_tmrShotClock);
+                    TimeSpan t = TimeSpan.Parse(_tmrShotClock);
                     lblShotClock.Text = string.Format("{0:D2}", t.Seconds);
                     decimal.TryParse(lblShotClock.Text.Trim(), out decimal val);
                     numShotClock.Value = val;
                 }
                 frmLoading.Increase();
+                /*
                 cmbQtr.Items.Clear();
-                cmbQtr.Items.AddRange(_Xpression.GetTextListWidgetValues(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject))).ToArray());
-                long qtrIndex = _Xpression.GetTextListWidgetItemIndex(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)));
+                cmbQtr.Items.AddRange(vMix.GetTextListWidgetValues(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject))).ToArray());
+                long qtrIndex = vMix.GetTextListWidgetItemIndex(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)));
                 if (qtrIndex > -1)
                 {
                     if (cmbQtr.Items.Count > qtrIndex)
                         cmbQtr.SelectedIndex = (int)qtrIndex;
                 }
+                */
                 frmLoading.Increase();
 
                 // Get a default Xpression Data object for loading default IDs if no custom is found
-                XpressionData _defaultXPN = new XpressionData();
-                // Remove any existing takeItems and re-load them all
-                takeItems.Clear();
+                vMixData _defaultXPN = new vMixData();
+                // Remove any existing takeInputs and re-load them all
+                takeInputs.Clear();
 
                 // Load Misc Take Items
                 LoadTakeID("Misc_Network_Bug", _defaultXPN.Misc_Network_Bug, btnTakeNetwork);
@@ -906,13 +905,9 @@ namespace SportsController.Basketball
                 frmLoading.Increase();
 
                 // Load Bumper Take Items
-                LoadTakeID("Bumper_Score_ID", _defaultXPN.Bumper_Score_ID, btnTakeBumperScore);
+                LoadTakeID("Bumper_Score_ID", _defaultXPN.Bumper_Score_Name, btnTakeBumperScore);
                 frmLoading.Increase();
                 LoadTakeID("Bumper_Locator_ID", _defaultXPN.Bumper_Locator_ID, btnTakeBumperLocator);
-                frmLoading.Increase();
-                LoadTakeID("Bumper_HeadToHead_ID", _defaultXPN.Bumper_HeadToHead_ID, btnTakeBumperHeadToHead);
-                frmLoading.Increase();
-                LoadTakeID("Bumper_Standings_ID", _defaultXPN.Bumper_Standings_ID, btnTakeBumperStandings);
                 frmLoading.Increase();
 
                 // Load Lower Third Take Items
@@ -934,17 +929,11 @@ namespace SportsController.Basketball
                 frmLoading.Increase();
 
                 // Load Scorebug Take Items
-                LoadTakeID("Scorebug_ID", _defaultXPN.Scorebug_ID, btnTakeScorebug);
+                LoadTakeID("Scorebug_ID", _defaultXPN.Scorebug_Name, btnTakeScorebug);
                 frmLoading.Increase();
                 LoadTakeID("Scorebug_Info_ID", _defaultXPN.Scorebug_Info_ID, btnTakeInfobox);
                 frmLoading.Increase();
                 CheckInfoBugStatus();
-
-                // Load Credits Take Items
-                LoadTakeID("Credits_ID", _defaultXPN.Credits_ID, btnTakeCredits);
-                frmLoading.Increase();
-                LoadTakeID("Credits_Copyright_ID", _defaultXPN.Credits_Copyright_ID, btnTakeCredits);
-                frmLoading.Increase();
             }
             catch { }
 
@@ -964,7 +953,7 @@ namespace SportsController.Basketball
         {
             progBarSync.Value = 0;
             int widgetCount = 7;
-            progBarSync.Maximum = 1 + widgetCount + takeItems.Count();
+            progBarSync.Maximum = 1 + widgetCount + takeInputs.Count();
 
             string _homeName = ConvertCustoms(Globals.GetObjectValue("HomeName", propGridEvent.SelectedObject));
             string _awayName = ConvertCustoms(Globals.GetObjectValue("AwayName", propGridEvent.SelectedObject));
@@ -977,32 +966,32 @@ namespace SportsController.Basketball
             SyncEventData();
 
             // Get Widget Values
-            _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Score", propGridXpression.SelectedObject)), scoreboardData.HomePoints);
+            vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Score", propGridXpression.SelectedObject)), scoreboardData.HomePoints);
             progBarSync.Value++;
-            _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Score", propGridXpression.SelectedObject)), scoreboardData.AwayPoints);
+            vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Score", propGridXpression.SelectedObject)), scoreboardData.AwayPoints);
             progBarSync.Value++;
-            _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Fouls", propGridXpression.SelectedObject)), scoreboardData.HomeFouls);
+            vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Fouls", propGridXpression.SelectedObject)), scoreboardData.HomeFouls);
             progBarSync.Value++;
-            _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Fouls", propGridXpression.SelectedObject)), scoreboardData.AwayFouls);
+            vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Fouls", propGridXpression.SelectedObject)), scoreboardData.AwayFouls);
             progBarSync.Value++;
             btnResetGameClock.PerformClick();
             progBarSync.Value++;
             btnResetShotClock.PerformClick();
             progBarSync.Value++;
-            _Xpression.SetTextListWidgetValues(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)),
+            vMix.SetTextListWidgetValues(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)),
                 cmbQtr.Items.Cast<string>().Select(item => item.ToString()).ToList());
-            _Xpression.SetTextListWidgetItemIndex(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)), cmbQtr.SelectedIndex);
+            vMix.SetTextListWidgetItemIndex(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)), cmbQtr.SelectedIndex);
             progBarSync.Value++;
 
-            foreach (TakeItem takeItem in takeItems)
+            foreach (TakeItem takeItem in takeInputs)
             {
                 if (int.TryParse(ConvertCustoms(Globals.GetObjectValue(takeItem.Name, propGridXpression.SelectedObject)), out int newID))
                 {
                     takeItem.ID = newID;
                 }
 
-                if (_Xpression.GetTakeItemStatus(takeItem.ID))
-                    _Xpression.SetTakeItemOnline(takeItem.ID);
+                if (vMix.GettakeInputstatus(takeItem.ID))
+                    vMix.SetTakeItemOnline(takeItem.ID);
 
                 progBarSync.Value++;
             }
@@ -1024,7 +1013,7 @@ namespace SportsController.Basketball
                         string value = ConvertCustoms(prop.GetValue(eventData, null).ToString());
                         // Set the event data to their own widgets
                         if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(value))
-                            _Xpression.SetTextListWidgetValues(name, new List<string> { value });
+                            vMix.SetTextListWidgetValues(name, new List<string> { value });
                     }
                 }
             }
@@ -1269,7 +1258,7 @@ namespace SportsController.Basketball
                 Invoke(new Action(() =>
                 {
                     if (!infoText.Equals(string.Empty) && infoText.Equals(txtInfobox.Text)) {
-                        TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+                        TakeItem takeItem = takeInputs.Where(item => item.Name == "Scorebug_Info_ID").First();
                         // Check if take item is online
                         if (takeItem.IsOnline)
                         {
@@ -1305,7 +1294,7 @@ namespace SportsController.Basketball
 
                 updateInfoLastEdited(1);
 
-                TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+                TakeItem takeItem = takeInputs.Where(item => item.Name == "Scorebug_Info_ID").First();
                 // Check if take item is offline
                 if (!takeItem.IsOnline)
                 {
@@ -1551,7 +1540,7 @@ namespace SportsController.Basketball
         private void lblHomePoints_TextChanged(object sender, EventArgs e)
         {
             if (int.TryParse(lblHomePoints.Text, out int val))
-                _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Score", propGridXpression.SelectedObject)), val);
+                vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Score", propGridXpression.SelectedObject)), val);
         }
 
         public void HomeScoreUpdate(int points)
@@ -1581,13 +1570,13 @@ namespace SportsController.Basketball
         public void HomeFoulsUpdate(int fouls)
         {
             scoreboardData.HomeFouls = fouls;
-            _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Fouls", propGridXpression.SelectedObject)), fouls);
+            vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Home_Fouls", propGridXpression.SelectedObject)), fouls);
         }
 
         public void AwayFoulsUpdate(int fouls)
         {
             scoreboardData.AwayFouls = fouls;
-            _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Fouls", propGridXpression.SelectedObject)), fouls);
+            vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Fouls", propGridXpression.SelectedObject)), fouls);
         }
 
         public void QuaterUpdate(string quarter)
@@ -1648,7 +1637,7 @@ namespace SportsController.Basketball
         private void lblAwayPoints_TextChanged(object sender, EventArgs e)
         {
             if (int.TryParse(lblAwayPoints.Text, out int val))
-                _Xpression.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Score", propGridXpression.SelectedObject)), val);
+                vMix.EditCounterWidget(ConvertCustoms(Globals.GetObjectValue("Widget_Away_Score", propGridXpression.SelectedObject)), val);
         }
 
         private void btnAwayPointsDec_Click(object sender, EventArgs e)
@@ -1710,9 +1699,9 @@ namespace SportsController.Basketball
             Invoke(new Action(() =>
             {
                 if (hours == 0 && minutes == 0 && seconds == 60)
-                    _Xpression.EditClockWidgetFormat(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)), "SS");
+                    vMix.EditClockWidgetFormat(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)), "SS");
                 else if (hours == 0 && minutes == 0 && seconds == 10)
-                    _Xpression.EditClockWidgetFormat(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)), "S.ZZ");
+                    vMix.EditClockWidgetFormat(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)), "S.ZZ");
 
                 if (minutes == 0 && seconds < 1)
                     lblGameClock.Text = string.Format("{0:D2}.{1:D2}", 0, 0);
@@ -1735,10 +1724,10 @@ namespace SportsController.Basketball
                         string dirName = ConvertCustoms(Globals.GetObjectValue("Scorebug_ShotClock_Director_IN", propGridXpression.SelectedObject));
                         if (!string.IsNullOrEmpty(dirName))
                         {
-                            TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_ID").First();
+                            TakeItem takeItem = takeInputs.Where(item => item.Name == "Scorebug_ID").First();
                             if (takeItem != null && takeItem.IsOnline)
                             {
-                                if (_Xpression.PlaySceneDirector(takeItem.ID, dirName))
+                                if (vMix.PlaySceneDirector(takeItem.ID, dirName))
                                     _shotClock_enabled = true;
                             }
                         }
@@ -1746,7 +1735,7 @@ namespace SportsController.Basketball
                 } else
                 {
                     if (hours == 0 && minutes == 0 && seconds == 10)
-                        _Xpression.EditClockWidgetFormat(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)), "S.ZZ");
+                        vMix.EditClockWidgetFormat(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)), "S.ZZ");
                 }
 
                 if (minutes == 0 && seconds < 1)
@@ -1764,10 +1753,10 @@ namespace SportsController.Basketball
             btnGameClock.BackColor = System.Drawing.Color.DarkGreen;
 
             string _gameClockName = ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject));
-            _Xpression.StartClockWidget(_gameClockName);
+            vMix.StartClockWidget(_gameClockName);
             if (string.Equals("Enabled", btnShotClockDisable.Text))
                 TurnOnShotClock();
-            _Xpression.SetClockWidgetCallback(_gameClockName, GameClockTick);
+            vMix.SetClockWidgetCallback(_gameClockName, GameClockTick);
 
         }
 
@@ -1776,7 +1765,7 @@ namespace SportsController.Basketball
             btnGameClock.Text = "Start";
             btnGameClock.BackColor = System.Drawing.Color.DarkRed;
 
-            _Xpression.StopClockWidget(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)));
+            vMix.StopClockWidget(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)));
             if (string.Equals("Enabled", btnShotClockDisable.Text))
                 TurnOffShotClock();
         }
@@ -1787,10 +1776,10 @@ namespace SportsController.Basketball
             btnGameClock.BackColor = System.Drawing.Color.DarkRed;
 
             string _gameClockName = ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject));
-            _Xpression.EditClockWidgetFormat(_gameClockName, "NN:SS");
-            _Xpression.ResetClockWidget(_gameClockName);
+            vMix.EditClockWidgetFormat(_gameClockName, "NN:SS");
+            vMix.ResetClockWidget(_gameClockName);
 
-            int _tmrValue = _Xpression.GetClockWidgetTimerValue(_gameClockName);
+            int _tmrValue = vMix.GetClockWidgetTimerValue(_gameClockName);
             TimeSpan t = TimeSpan.FromMilliseconds(_tmrValue);
             lblGameClock.Text = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
         }
@@ -1803,8 +1792,8 @@ namespace SportsController.Basketball
             btnShotClock.Text = "Stop";
             btnShotClock.BackColor = System.Drawing.Color.DarkGreen;
             string _shotClockName = ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject));
-            _Xpression.StartClockWidget(_shotClockName);
-            _Xpression.SetClockWidgetCallback(_shotClockName, ShotClockTick);
+            vMix.StartClockWidget(_shotClockName);
+            vMix.SetClockWidgetCallback(_shotClockName, ShotClockTick);
         }
 
         private void TurnOffShotClock()
@@ -1815,7 +1804,7 @@ namespace SportsController.Basketball
             btnShotClock.Text = "Start";
             btnShotClock.BackColor = System.Drawing.Color.DarkRed;
 
-            _Xpression.StopClockWidget(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)));
+            vMix.StopClockWidget(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)));
         }
 
         private void ResetShotClock()
@@ -1832,18 +1821,18 @@ namespace SportsController.Basketball
                 string dirName = ConvertCustoms(Globals.GetObjectValue("Scorebug_ShotClock_Director_OUT", propGridXpression.SelectedObject));
                 if (!string.IsNullOrEmpty(dirName))
                 {
-                    TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_ID").First();
+                    TakeItem takeItem = takeInputs.Where(item => item.Name == "Scorebug_ID").First();
                     if (takeItem != null && takeItem.IsOnline)
-                        _Xpression.PlaySceneDirector(takeItem.ID, dirName);
+                        vMix.PlaySceneDirector(takeItem.ID, dirName);
                 }
                 _shotClock_enabled = false;
             }
 
             string _shotClockName = ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject));
-            _Xpression.EditClockWidgetFormat(_shotClockName, "SS");
-            _Xpression.ResetClockWidget(_shotClockName);
+            vMix.EditClockWidgetFormat(_shotClockName, "SS");
+            vMix.ResetClockWidget(_shotClockName);
 
-            int _tmrValue = _Xpression.GetClockWidgetTimerValue(_shotClockName);
+            int _tmrValue = vMix.GetClockWidgetTimerValue(_shotClockName);
             TimeSpan t = TimeSpan.FromMilliseconds(_tmrValue);
             lblShotClock.Text = string.Format("{0:D2}", t.Seconds);
         }
@@ -1856,7 +1845,7 @@ namespace SportsController.Basketball
             var minutes = Math.Truncate(val);
             string seconds = (val - Math.Truncate(val)).ToString().Replace("0.", "");
             string startTime = string.Format("00:{0:D2}:{1:D2}.000", minutes.ToString().PadLeft(2, '0'), seconds.ToString().PadLeft(2, '0'));
-            _Xpression.EditClockWidgetStartTime(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)), startTime);
+            vMix.EditClockWidgetStartTime(ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject)), startTime);
             GameClockTick(0, (int)minutes, int.Parse(seconds), 0);
         }
 
@@ -1881,11 +1870,11 @@ namespace SportsController.Basketball
         {
             string _gameClockName = ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject));
             // Get the current clock value
-            TimeSpan spanCurTime = TimeSpan.FromMilliseconds(_Xpression.GetClockWidgetTimerValue(_gameClockName));
+            TimeSpan spanCurTime = TimeSpan.FromMilliseconds(vMix.GetClockWidgetTimerValue(_gameClockName));
             spanCurTime -= TimeSpan.FromSeconds(1); // Remove a second
             lblGameClock.Text = string.Format("{0:D2}:{1:D2}", spanCurTime.Minutes, spanCurTime.Seconds);
 
-            _Xpression.SetClockWidgetTimerValue(_gameClockName, (int)spanCurTime.TotalMilliseconds);
+            vMix.SetClockWidgetTimerValue(_gameClockName, (int)spanCurTime.TotalMilliseconds);
         }
 
         public void GameClockStart(string time)
@@ -1898,7 +1887,7 @@ namespace SportsController.Basketball
                     lblGameClock.Text = string.Format("{0:D2}:{1:D2}", clock.Minutes, clock.Seconds);
                 }));
 
-                if (_Xpression.SetClockWidgetTimerValue(_gameClockName, (int)clock.TotalMilliseconds))
+                if (vMix.SetClockWidgetTimerValue(_gameClockName, (int)clock.TotalMilliseconds))
                     TurnOnGameClock();
             }
         }
@@ -1915,7 +1904,7 @@ namespace SportsController.Basketball
                     lblGameClock.Text = string.Format("{0:D2}:{1:D2}", clock.Minutes, clock.Seconds);
                 }));
 
-                _Xpression.SetClockWidgetTimerValue(_gameClockName, (int)clock.TotalMilliseconds);
+                vMix.SetClockWidgetTimerValue(_gameClockName, (int)clock.TotalMilliseconds);
             }
         }
 
@@ -1929,7 +1918,7 @@ namespace SportsController.Basketball
                     lblGameClock.Text = string.Format("{0:D2}:{1:D2}", clock.Minutes, clock.Seconds);
                 }));
 
-                _Xpression.SetClockWidgetTimerValue(_gameClockName, (int)clock.TotalMilliseconds);
+                vMix.SetClockWidgetTimerValue(_gameClockName, (int)clock.TotalMilliseconds);
             }
         }
 
@@ -1943,7 +1932,7 @@ namespace SportsController.Basketball
                     lblShotClock.Text = string.Format("{0:D2}", clock.Seconds);
                 }));
 
-                if (_Xpression.SetClockWidgetTimerValue(_shotClockName, (int)clock.TotalMilliseconds))
+                if (vMix.SetClockWidgetTimerValue(_shotClockName, (int)clock.TotalMilliseconds))
                     TurnOnShotClock();
             }
         }
@@ -1960,7 +1949,7 @@ namespace SportsController.Basketball
                     lblShotClock.Text = string.Format("{0:D2}", clock.Seconds);
                 }));
 
-                _Xpression.SetClockWidgetTimerValue(_shotClockName, (int)clock.TotalMilliseconds);
+                vMix.SetClockWidgetTimerValue(_shotClockName, (int)clock.TotalMilliseconds);
             }
         }
 
@@ -1974,7 +1963,7 @@ namespace SportsController.Basketball
                     lblShotClock.Text = string.Format("{0:D2}", clock.Seconds);
                 }));
 
-                _Xpression.SetClockWidgetTimerValue(_shotClockName, (int)clock.TotalMilliseconds);
+                vMix.SetClockWidgetTimerValue(_shotClockName, (int)clock.TotalMilliseconds);
             }
         }
 
@@ -1982,11 +1971,11 @@ namespace SportsController.Basketball
         {
             string _gameClockName = ConvertCustoms(Globals.GetObjectValue("Widget_GameClock", propGridXpression.SelectedObject));
             // Get the current clock value
-            TimeSpan spanCurTime = TimeSpan.FromMilliseconds(_Xpression.GetClockWidgetTimerValue(_gameClockName));
+            TimeSpan spanCurTime = TimeSpan.FromMilliseconds(vMix.GetClockWidgetTimerValue(_gameClockName));
             spanCurTime += TimeSpan.FromSeconds(1); // Add a second
             lblGameClock.Text = string.Format("{0:D2}:{1:D2}", spanCurTime.Minutes, spanCurTime.Seconds);
 
-            _Xpression.SetClockWidgetTimerValue(_gameClockName, (int)spanCurTime.TotalMilliseconds);
+            vMix.SetClockWidgetTimerValue(_gameClockName, (int)spanCurTime.TotalMilliseconds);
         }
 
         private void numShotClock_ValueChanged(object sender, EventArgs e)
@@ -1998,7 +1987,7 @@ namespace SportsController.Basketball
 
             int seconds = (int)(numShotClock.Value);
             string startTime = string.Format("00:00:{0:D2}.000", seconds.ToString().PadLeft(2, '0'));
-            _Xpression.EditClockWidgetStartTime(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)), startTime);
+            vMix.EditClockWidgetStartTime(ConvertCustoms(Globals.GetObjectValue("Widget_ShotClock", propGridXpression.SelectedObject)), startTime);
             ShotClockTick(0, 0, seconds, 0);
         }
 
@@ -2049,7 +2038,7 @@ namespace SportsController.Basketball
 
         private void cmbQtr_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _Xpression.SetTextListWidgetItemIndex(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)), cmbQtr.SelectedIndex);
+            vMix.SetTextListWidgetItemIndex(ConvertCustoms(Globals.GetObjectValue("Widget_Quarter", propGridXpression.SelectedObject)), cmbQtr.SelectedIndex);
         }
 
         private void lblCmbInfobox_Click(object sender, EventArgs e)
@@ -2445,10 +2434,10 @@ namespace SportsController.Basketball
 
         #endregion
 
-        #region Main TakeItems Tab
+        #region Main takeInputs Tab
         private void btnTakeScorebug_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Scorebug_ID").First();
 
             if (!takeItem.IsOnline)
             {
@@ -2457,7 +2446,7 @@ namespace SportsController.Basketball
             else
             {
                 // Make sure anything on the info bug layer is turned off
-                TakeItem infoItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+                TakeItem infoItem = takeInputs.Where(item => item.Name == "Scorebug_Info_ID").First();
                 if (infoItem != null)
                     TurnOffTakeItemLayer(infoItem);
 
@@ -2467,7 +2456,7 @@ namespace SportsController.Basketball
 
         private void btnTakeNetwork_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Misc_Network_Bug").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Misc_Network_Bug").First();
 
             if (!takeItem.IsOnline)
                 TurnOnTakeItem(takeItem);
@@ -2477,7 +2466,7 @@ namespace SportsController.Basketball
 
         private void btnTakeReplay_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Misc_Replay_Bug").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Misc_Replay_Bug").First();
 
             if (!takeItem.IsOnline)
                 TurnOnTakeItem(takeItem);
@@ -2487,13 +2476,13 @@ namespace SportsController.Basketball
 
         private void btnTakeInfobox_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Scorebug_Info_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Scorebug_Info_ID").First();
 
             // Check if take item is online
             if (!takeItem.IsOnline)
             {
                 // Make sure the base scorebug is online
-                TakeItem scorebugItem = takeItems.Where(item => item.Name == "Scorebug_ID").First();
+                TakeItem scorebugItem = takeInputs.Where(item => item.Name == "Scorebug_ID").First();
                 if (scorebugItem != null)
                 {
                     // Make sure the scorebug is online and if not make sure it went online
@@ -2519,7 +2508,7 @@ namespace SportsController.Basketball
 
         private void btnTakeHomePlayerStats_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerStats_Home_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_PlayerStats_Home_ID").First();
 
             if (ToggleTakeButton(btnTakeHomePlayerStats))
             {
@@ -2537,7 +2526,7 @@ namespace SportsController.Basketball
 
         private void btnTakeHomePlayerInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerInfo_Home_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_PlayerInfo_Home_ID").First();
 
             if (ToggleTakeButton(btnTakeHomePlayerInfo))
             {
@@ -2555,7 +2544,7 @@ namespace SportsController.Basketball
 
         private void btnTakeHomeCoachInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_TeamInfo_Home_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_TeamInfo_Home_ID").First();
 
             if (ToggleTakeButton(btnTakeHomeCoachInfo))
             {
@@ -2573,7 +2562,7 @@ namespace SportsController.Basketball
 
         private void btnTakeAwayPlayerStats_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerStats_Away_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_PlayerStats_Away_ID").First();
 
             if (ToggleTakeButton(btnTakeAwayPlayerStats))
             {
@@ -2591,7 +2580,7 @@ namespace SportsController.Basketball
 
         private void btnTakeAwayPlayerInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_PlayerInfo_Away_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_PlayerInfo_Away_ID").First();
 
             if (ToggleTakeButton(btnTakeAwayPlayerInfo))
             {
@@ -2609,7 +2598,7 @@ namespace SportsController.Basketball
 
         private void btnTakeAwayCoachInfo_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_TeamInfo_Away_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_TeamInfo_Away_ID").First();
 
             if (ToggleTakeButton(btnTakeAwayCoachInfo))
             {
@@ -2627,7 +2616,7 @@ namespace SportsController.Basketball
 
         private void btnTakeCustomL3_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_Custom_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_Custom_ID").First();
 
             if (ToggleTakeButton(btnTakeCustomL3))
             {
@@ -2654,7 +2643,7 @@ namespace SportsController.Basketball
 
         private void btnTakeBumperScore_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Bumper_Score_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Bumper_Score_ID").First();
 
             // Make  sure the scene is offline
             if (!takeItem.IsOnline)
@@ -2695,7 +2684,7 @@ namespace SportsController.Basketball
 
         private void btnTakeBumperLocator_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Bumper_Locator_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Bumper_Locator_ID").First();
 
             // Make  sure the scene is offline
             if (!takeItem.IsOnline)
@@ -2722,7 +2711,7 @@ namespace SportsController.Basketball
 
         private void btnTakeBumperHeadToHead_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Bumper_HeadToHead_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Bumper_HeadToHead_ID").First();
 
             // Make  sure the scene is offline
             if (!takeItem.IsOnline)
@@ -2838,7 +2827,7 @@ namespace SportsController.Basketball
 
         private void btnTakeBumperStandings_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "Bumper_Standings_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "Bumper_Standings_ID").First();
 
             // Make  sure the scene is offline
             if (!takeItem.IsOnline)
@@ -2869,7 +2858,7 @@ namespace SportsController.Basketball
                         string _recordBase = ConvertCustoms((Globals.GetObjectValue("Bumper_Standings_RecordBase", propGridXpression.SelectedObject)));
                         string _pointsBase = ConvertCustoms((Globals.GetObjectValue("Bumper_Standings_PointsBase", propGridXpression.SelectedObject)));
                         if (!int.TryParse(ConvertCustoms(Globals.GetObjectValue("Bumper_Standings_MaxTeams", propGridXpression.SelectedObject)), out int _maxTeams))
-                            _maxTeams = new XpressionData().Bumper_Standings_MaxTeams;
+                            _maxTeams = new vMixData().Bumper_Standings_MaxTeams;
 
                         if (_maxTeams > 0 && !string.IsNullOrEmpty(_groupBase) && !string.IsNullOrEmpty(_schoolBase) &&
                             !string.IsNullOrEmpty(_recordBase) && !string.IsNullOrEmpty(_pointsBase))
@@ -2942,7 +2931,7 @@ namespace SportsController.Basketball
         private void btnTakeBumperCustom_Click(object sender, EventArgs e)
         {
             int takeID = (int)numTakeBumperCustom.Value;
-            TakeItem takeItem = new TakeItem(string.Format("_custom_{0}", takeID), takeID, btnTakeBumperCustom, _Xpression.GetTakeItem(takeID));
+            TakeItem takeItem = new TakeItem(string.Format("_custom_{0}", takeID), takeID, btnTakeBumperCustom, vMix.GetTakeItem(takeID));
 
             if (!takeItem.IsOnline)
                 TurnOnTakeItem(takeItem);
@@ -3043,7 +3032,7 @@ namespace SportsController.Basketball
 
         private void btnTakeL3Setup_Click(object sender, EventArgs e)
         {
-            TakeItem takeItem = takeItems.Where(item => item.Name == "L3_EventExtras_ID").First();
+            TakeItem takeItem = takeInputs.Where(item => item.Name == "L3_EventExtras_ID").First();
 
             // Make sure the take item isn't already online
             if (!takeItem.IsOnline)
@@ -3341,8 +3330,8 @@ namespace SportsController.Basketball
 
         private void btnTakeCredits_Click(object sender, EventArgs e)
         {
-            TakeItem takeItemMain = takeItems.Where(item => item.Name == "Credits_ID").First();
-            TakeItem takeItemCopyright = takeItems.Where(item => item.Name == "Credits_Copyright_ID").First();
+            TakeItem takeItemMain = takeInputs.Where(item => item.Name == "Credits_ID").First();
+            TakeItem takeItemCopyright = takeInputs.Where(item => item.Name == "Credits_Copyright_ID").First();
 
             // Make sure all of the scene options are offline
             if (!takeItemMain.IsOnline && !takeItemCopyright.IsOnline)
@@ -3358,8 +3347,8 @@ namespace SportsController.Basketball
 
         private void btnTakeNextCredits_Click(object sender, EventArgs e)
         {
-            TakeItem takeItemMain = takeItems.Where(item => item.Name == "Credits_ID").First();
-            TakeItem takeItemCopyright = takeItems.Where(item => item.Name == "Credits_Copyright_ID").First();
+            TakeItem takeItemMain = takeInputs.Where(item => item.Name == "Credits_ID").First();
+            TakeItem takeItemCopyright = takeInputs.Where(item => item.Name == "Credits_Copyright_ID").First();
 
             // Make sure all of the scene options are offline
             if (!takeItemMain.IsOnline && !takeItemCopyright.IsOnline)
@@ -3398,9 +3387,9 @@ namespace SportsController.Basketball
         #endregion
 
         #region Config Scenes Tab
-        private void btnConfigSaveXpressionData_Click(object sender, EventArgs e)
+        private void btnConfigSavevMixData_Click(object sender, EventArgs e)
         {
-            SaveXpressionData();
+            SavevMixData();
         }
 
         #endregion
@@ -3519,7 +3508,7 @@ namespace SportsController.Basketball
             {
                 LoadCustomsData();
                 LoadEventData();
-                LoadXpressionData();
+                LoadvMixData();
                 LoadScoreBridgenData();
             }
         }
@@ -3537,7 +3526,7 @@ namespace SportsController.Basketball
 
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult confirmResult = MessageBox.Show("Are you sure to reload Widgets and TakeItems from Xpression? Unsaved changes may be lost.",
+            DialogResult confirmResult = MessageBox.Show("Are you sure to reload Widgets and takeInputs from Xpression? Unsaved changes may be lost.",
                                      "Confirm Load!",
                                      MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
@@ -3553,7 +3542,7 @@ namespace SportsController.Basketball
                                      MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                foreach (TakeItem takeItem in takeItems)
+                foreach (TakeItem takeItem in takeInputs)
                     takeItem.SetOffline();
             }
         }
